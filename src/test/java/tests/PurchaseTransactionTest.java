@@ -22,4 +22,14 @@ public class PurchaseTransactionTest extends BaseTest {
 
     }
 
+    @Test
+    @Order(2)
+    void batteryDeletingTest() {
+
+        new PersonalBasket(driver)
+                .deleteItems()
+                .isItemsRemoved();
+
+    }
+
 }
