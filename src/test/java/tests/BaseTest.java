@@ -17,12 +17,9 @@ public class BaseTest {
     protected static WebDriver driver;
 
     @BeforeAll
-    static void setup() {
-        try {
-            System.getProperties().load(ClassLoader.getSystemResourceAsStream("config.properties"));
-        } catch (IOException e) {
-            throw new RuntimeException(e.getMessage());
-        }
+    static void setup() throws IOException {
+
+        System.getProperties().load(ClassLoader.getSystemResourceAsStream("config.properties"));
         Map<String, Integer> prefs = new HashMap<>();
         prefs.put("profile.default_content_setting_values.notifications", 2);
         ChromeOptions options = new ChromeOptions();
