@@ -1,3 +1,3 @@
 public class Main {
-    //conflict resolution task solving branches in haha
+    //conflict resolution task merging branches develop2 and haha
 }
