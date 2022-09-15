@@ -1,4 +1,4 @@
-#lagnuage:ru
+#language:ru
 
   @dns
   Функционал: Покупка батарейки
