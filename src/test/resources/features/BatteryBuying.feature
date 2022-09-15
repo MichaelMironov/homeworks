@@ -1,12 +1,17 @@
-#language:ru
+Feature: Products buying
 
-  @dns
-  Функционал: Покупка батарейки
-  Сценарий: открытие главной страницы dns-shop.ru, переход в каталог товаров, покупка батарейки
+  Scenario: Buying a battery
+    Given i open "https://www.dns-shop.ru/"
+    When hover on "Аксессуары и услуги"
+    Then submenu appeared
+    Then click on "Батарейки и аккумуляторы"
+    And click on "Батарейки"
+    And click on "Купить"
+    And click on "В корзине"
+    Then number of items in the cart - 1
 
-    *открыть url "https://www.dns-shop.ru/"
-    *навести мышь на "Акссесуары и услуги" в каталоге
-    *появилось меню раздела "Акссесуары и услуги"
-    *кликнуть на элемент "Батарейки и аккумуляторы"
-    *кликнуть на элемент "Батарейки"
-    *кликнуть на элемент "Купить"
+  Scenario: Deleting products from cart
+    Given i open "https://www.dns-shop.ru/cart/"
+    When number of items in the cart - 1
+    Then click on "Удалить"
+    Then given message "Коризна пуста"
