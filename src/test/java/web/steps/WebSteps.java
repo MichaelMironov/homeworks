@@ -1,10 +1,14 @@
 package web.steps;
 
+import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.Selenide;
 import io.cucumber.java.en.Given;
+import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 
+import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.$x;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class WebSteps {
 
@@ -13,8 +17,8 @@ public class WebSteps {
         Selenide.open(url);
     }
 
-    @When("I divide {int} by {int}")
-    public void divide(String operand1, String operand2){
+    @When("I divide {double} by {double}")
+    public void divide(double operand1, double operand2){
 
         guiInput(operand1);
 
@@ -22,15 +26,28 @@ public class WebSteps {
 
         guiInput(operand2);
 
+        $x("//div[@aria-label=\"равно\"]").click();
+
     }
 
-    private void guiInput(String operand){
+    private void guiInput(double operand){
 
-        char[] firstOperandArray = operand.toCharArray();
+        String temp = String.valueOf(operand);
+
+        char[] firstOperandArray = temp.toCharArray();
 
         for(char num : firstOperandArray ){
+            if(num == '.'){
+                $x("//div[@aria-label=\"запятая\"]").click();
+            }
             $x("//div[@role='button' and text() = "+num+"]").click();
         }
     }
 
+    @Then("I get {double} as a result")
+    public void result(double expected){
+        String actual = $x("//span[@id=\"cwos\"]").innerText();
+
+        assertEquals(expected, Double.parseDouble(actual));
+    }
 }
