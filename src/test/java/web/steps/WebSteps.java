@@ -17,12 +17,14 @@ public class WebSteps {
         Selenide.open(url);
     }
 
-    @When("I divide {double} by {double}")
-    public void divide(double operand1, double operand2){
+    @When("I {double} {string} {double}")
+    public void divide(double operand1, String operator, double operand2){
 
         guiInput(operand1);
 
-        $x("//div[@aria-label=\"деление\"]").click();
+//        $x("//div[@aria-label=\"деление\"]").click();
+
+        selectOperator(operator);
 
         guiInput(operand2);
 
@@ -50,4 +52,14 @@ public class WebSteps {
 
         assertEquals(expected, Double.parseDouble(actual));
     }
+
+    private void selectOperator(String operator){
+        switch (operator){
+            case "/": $x("//div[@aria-label=\"деление\"]").click(); break;
+            case "*": $x("//div[@aria-label=\"умножение\"]").click(); break;
+            case "+": $x("//div[@aria-label=\"сложение\"]").click(); break;
+            case "-": $x("//div[@aria-label=\"вычитание\"]").click(); break;
+        }
+    }
+
 }
