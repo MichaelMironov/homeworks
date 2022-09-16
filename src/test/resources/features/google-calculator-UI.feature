@@ -1,6 +1,6 @@
 Feature: Calculator base operations
 
-  Scenario Outline: Division
+  Scenario Outline: Testing basic operations
     Given I open "https://www.google.com/search?q=%калькулятор"
     When I <operand1> <operator> <operand2>
     Then I get <result> as a result
