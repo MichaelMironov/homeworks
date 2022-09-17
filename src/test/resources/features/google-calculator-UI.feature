@@ -11,3 +11,4 @@ Feature: Calculator base operations
       | 5.76     | "*"      | 3.29     | 18.9504       |
       | 1000     | "+"      | 0        | 1000          |
       | 1        | "-"      | 2        | -1            |
+      | 1        | "/"      | 0        | "Infinity"    |
