@@ -16,25 +16,23 @@ public class WebSteps {
     }
 
     @When("I {double} {string} {double}")
-    public void divide(double operand1, String operator, double operand2){
+    public void calculate(double operand1, String operator, double operand2){
 
-        guiInput(operand1);
+        guiOperandInput(operand1);
 
         selectOperator(operator);
 
-        guiInput(operand2);
+        guiOperandInput(operand2);
 
         $x("//div[@aria-label=\"равно\"]").click();
 
     }
 
-    private void guiInput(double operand){
+    private void guiOperandInput(double operand){
 
-        String temp = String.valueOf(operand);
+        char[] operandArray = String.valueOf(operand).toCharArray();
 
-        char[] firstOperandArray = temp.toCharArray();
-
-        for(char num : firstOperandArray ){
+        for(char num : operandArray ){
             if(num == '.'){
                 $x("//div[@aria-label=\"запятая\"]").click();
             }
@@ -43,14 +41,14 @@ public class WebSteps {
     }
 
     @Then("I get {double} as a result")
-    public void result(double expected){
+    public void getNumResult(double expected){
         String actual = $x("//span[@id=\"cwos\"]").innerText();
 
         assertEquals(expected, Double.parseDouble(actual));
     }
 
     @Then("I get {string} as a result")
-    public void result(String expected){
+    public void getStringResult(String expected){
         String actual = $x("//span[@id=\"cwos\"]").innerText();
 
         assertEquals(expected, actual);
