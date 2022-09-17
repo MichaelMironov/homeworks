@@ -23,7 +23,7 @@ public class Calculator {
             throw new CalculatorException("Превышен порог значений операндов!");
         }
         double result = calculate(operator, operand1, operand2);
-        if (result > Double.MAX_VALUE || result < Double.MIN_VALUE) {
+        if (result > Long.MAX_VALUE || result < Long.MIN_VALUE) {
             throw new CalculatorException("Превышен порог значения результата!");
         }
         return String.valueOf(result);
