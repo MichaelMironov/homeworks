@@ -1,12 +1,10 @@
 package web.steps;
 
-import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.Selenide;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 
-import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.$x;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -21,8 +19,6 @@ public class WebSteps {
     public void divide(double operand1, String operator, double operand2){
 
         guiInput(operand1);
-
-//        $x("//div[@aria-label=\"деление\"]").click();
 
         selectOperator(operator);
 
@@ -51,6 +47,13 @@ public class WebSteps {
         String actual = $x("//span[@id=\"cwos\"]").innerText();
 
         assertEquals(expected, Double.parseDouble(actual));
+    }
+
+    @Then("I get {string} as a result")
+    public void result(String expected){
+        String actual = $x("//span[@id=\"cwos\"]").innerText();
+
+        assertEquals(expected, actual);
     }
 
     private void selectOperator(String operator){
