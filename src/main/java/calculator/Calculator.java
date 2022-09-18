@@ -9,21 +9,19 @@ public class Calculator {
         for (String elem : params)
             if (elem == null || elem.isEmpty() || elem.trim().length() == 0)
                 throw new CalculatorException("Значение операнда не может быть пустым или null!");
-        if (Pattern.matches("\\D", params[0]) || Pattern.matches("\\D", params[2]))
+
+        if (!Pattern.matches("[-+]?\\b[\\d+.,]+\\b", params[0]) || !Pattern.matches("[-+]?\\b[\\d+.,]+\\b", params[2]))
             throw new CalculatorException("Операнды должны быть числом!");
 
         String operator = params[1];
-        double operand1;
-        double operand2;
-
-        operand1 = Double.parseDouble(params[0]);
-        operand2 = Double.parseDouble(params[2]);
+        double operand1 = Double.parseDouble(params[0]);
+        double operand2 = Double.parseDouble(params[2]);
         if ((operand1 > Integer.MAX_VALUE || operand1 < Integer.MIN_VALUE)
                 || (operand2 > Integer.MAX_VALUE || operand2 < Integer.MIN_VALUE)) {
             throw new CalculatorException("Превышен порог значений операндов!");
         }
         double result = calculate(operator, operand1, operand2);
-        if (result > Long.MAX_VALUE || result < Long.MIN_VALUE) {
+        if (result > Integer.MAX_VALUE || result < Integer.MIN_VALUE) {
             throw new CalculatorException("Превышен порог значения результата!");
         }
         return String.valueOf(result);
