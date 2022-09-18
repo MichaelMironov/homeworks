@@ -4,11 +4,17 @@ import com.codeborne.selenide.Selenide;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 
 import static com.codeborne.selenide.Selenide.$x;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class WebSteps {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(WebSteps.class.getSimpleName());
+    private static int COUNT = 1;
 
     @Given("I open {string}")
     public void open(String url){
@@ -17,6 +23,7 @@ public class WebSteps {
 
     @When("I {double} {string} {double}")
     public void calculate(double operand1, String operator, double operand2){
+        LOGGER.info("Тестовые данные #{}: Оператор: \"{}\". Операнды = {} и {}" , COUNT++ ,operator, operand1, operand2);
 
         guiOperandInput(operand1);
 
@@ -44,12 +51,16 @@ public class WebSteps {
     public void getNumResult(double expected){
         String actual = $x("//span[@id=\"cwos\"]").innerText();
 
+        LOGGER.info("Ожидаемый результат = {}. Фактический результат = {}", expected, actual);
+
         assertEquals(expected, Double.parseDouble(actual));
     }
 
     @Then("I get {string} as a result")
     public void getStringResult(String expected){
         String actual = $x("//span[@id=\"cwos\"]").innerText();
+
+        LOGGER.info("Ожидаемый результат = {}. Фактический результат = {}", expected, actual);
 
         assertEquals(expected, actual);
     }
