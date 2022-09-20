@@ -1,4 +1,4 @@
-package web.ru.jira.pages.steps.models;
+package web.ru.jira.pages;
 
 import com.codeborne.selenide.SelenideElement;
 
@@ -9,5 +9,7 @@ public class AuthorizationPage {
     public static SelenideElement loginField = $x("//input[@id='login-form-username']");
 
     public static SelenideElement passwordField = $x("//input[@id='login-form-password']");
+
+    public static SelenideElement buttonLogIn = $x("//input[@type='submit' and @name='login']");
 
 }
