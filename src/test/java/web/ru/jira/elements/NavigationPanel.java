@@ -10,7 +10,7 @@ public class NavigationPanel {
 
     public static final SelenideElement PROJECTS = $x("//a[@id='browse_link']");
 
-    public static final SelenideElement tasks = $x("//*[@href='/issues/']");
+    public static final SelenideElement TASKS = $x("//*[@href='/issues/']");
 
     public static final SelenideElement ALL_PROJECTS = $x("//*[@id='project_view_all_link_lnk']");
 
