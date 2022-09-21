@@ -13,8 +13,8 @@ public class TasksPageSteps {
 
     @Step("Отфильтровать задачи по тексту: {text}")
     public static void filterTasksByText(String text) {
-        searcher.click();
-        searcher.shouldHave(Condition.attribute("data-focus-visible-added")).sendKeys(text);
+        searcher.shouldBe(Condition.appear).click();
+        searcher.sendKeys(text);
         searcher.pressEnter();
     }
 
