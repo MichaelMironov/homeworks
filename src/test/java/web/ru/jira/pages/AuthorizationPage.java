@@ -12,4 +12,6 @@ public class AuthorizationPage {
 
     public static SelenideElement buttonLogIn = $x("//input[@type='submit' and @name='login']");
 
+    public static SelenideElement usernameError = $x("//div[@id='usernameerror']");
+
 }
