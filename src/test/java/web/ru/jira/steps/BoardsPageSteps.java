@@ -25,9 +25,11 @@ public class BoardsPageSteps {
 
         taskName = id + " " + name;
         tasksList.click();
-        searcherBacklogTasks.setValue(taskName);
+        searcherBacklogTasks.setValue(taskName).should(Condition.appear);
+        $x("//div[@class=\"ghx-description\"]").should(Condition.visible);
+
         $x("//div[contains(@data-issue-key, " + id + ")]")
-                .shouldBe(Condition.visible).contextClick().$(By.linkText("Доска Спринт 1"));
+                .shouldBe(Condition.exist).contextClick().$(By.linkText("Доска Спринт 1"));
 
         $(By.linkText("Доска Спринт 1")).shouldBe(Condition.visible).click();
 
@@ -37,7 +39,7 @@ public class BoardsPageSteps {
 
     @Step("Перейти к доске текущего спринта")
     public static void toSprintBoard() {
-        activeTasks.shouldBe(Condition.visible).click();
+        activeTasks.shouldBe(Condition.visible).doubleClick();
     }
 
     @Step("Переместить задачу с id: {id} в {in}")
@@ -54,7 +56,7 @@ public class BoardsPageSteps {
         Actions actions = new Actions(driverRunner);
         actions.dragAndDrop(from, to).perform();
 
-        if (in.equals(IN_WORK)){
+        if (in.equals(IN_WORK)) {
             wait.until(ExpectedConditions.presenceOfElementLocated(By.name("Transition"))).click();
             wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//a[@title='TEST-" + id + "']")));
         }
