@@ -58,8 +58,9 @@ public class BoardsPageSteps {
 
         if (in.equals(IN_WORK)) {
             wait.until(ExpectedConditions.presenceOfElementLocated(By.name("Transition"))).click();
-            wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//a[@title='TEST-" + id + "']")));
         }
+
+        wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//a[@title='TEST-" + id + "']")));
 
     }
 }

@@ -13,17 +13,15 @@ public class TaskPage {
 
     public static SelenideElement issueTypeField = $x("//input[@id='issuetype-field']");
 
-    public static SelenideElement iframeDescription = $x("//iframe[@class=\"tox-edit-area__iframe\"]");
+    public static SelenideElement iframeDescription = $x("//iframe[@class='tox-edit-area__iframe']");
 
-    public static SelenideElement descriptionField = $x("//body[@id='tinymce']//p");
+    public static SelenideElement descriptionField = $x("//*[@id='tinymce']/p");
 
     public static SelenideElement taskTitle = $x("//input[@name='summary']");
 
     public static SelenideElement messageSuccessCreation = $x("//a[@class=\"issue-created-key issue-link\"]");
 
     public static SelenideElement submitButton = $x("//input[@id='create-issue-submit']");
-
-    public static SelenideElement descriptionTextArea = $x("//body[@id='tinymce']");
 
     public static int taskId;
 
@@ -32,7 +30,7 @@ public class TaskPage {
         issueTypeField.click();
         issueTypeField.sendKeys(Keys.BACK_SPACE);
         issueTypeField.setValue(type);
-        issueTypeField.pressEnter();
+        issueTypeField.pressEnter().shouldBe(Condition.visible);
 
     }
 
@@ -41,9 +39,8 @@ public class TaskPage {
     }
 
     public static void setDescription(String description) {
-        switchTo().frame(iframeDescription);
-        descriptionTextArea.shouldBe(Condition.visible).click();
-        descriptionField.setValue(description);
+        switchTo().frame(0);
+        descriptionField.shouldBe(Condition.visible).setValue(description);
         switchTo().defaultContent();
     }
 
@@ -54,9 +51,6 @@ public class TaskPage {
         messageSuccessCreation.shouldBe(Condition.appear);
 
         String[] nameOfCreatedTask = messageSuccessCreation.innerText().split("-");
-
-//        String nameOfCreatedTask = Arrays.stream(messageSuccessCreation.innerText().split("-"))
-//                .reduce((first, second) -> second).get();
 
         taskId = Integer.parseInt(nameOfCreatedTask[1].trim());
 
