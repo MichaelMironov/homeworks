@@ -1,10 +1,9 @@
 package web.ru.jira.tests;
 
-import com.codeborne.selenide.Configuration;
 import org.junit.jupiter.api.*;
+import web.hooks.WebHooks;
 import web.ru.jira.models.Task;
 
-import static com.codeborne.selenide.Selenide.sleep;
 import static web.ru.jira.elements.NavigationPanel.*;
 import static web.ru.jira.pages.TaskPage.*;
 import static web.ru.jira.steps.AuthorizationPageSteps.*;
@@ -12,19 +11,47 @@ import static web.ru.jira.steps.BoardsPageSteps.*;
 import static web.ru.jira.steps.TasksPageSteps.*;
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-public class BaseTest {
-
-    @BeforeAll
-    public static void authorizeAsUser(){
-        Configuration.timeout = 7000;
-        Configuration.startMaximized = true;
-        openAuthorizationPage();
-        logInAs(USER);
-    }
+public class BaseTest extends WebHooks {
 
     @Test
-    @Order(1)
+    public void TestFullScenario(){
+
+        openAuthorizationPage();
+        logInAs(USER);
+
+        //Указать раздел меню на главной панели и его подраздел
+        selectMenuSubsectionByText(TASKS,"Поиск задач");
+        totalCountTasks();
+
+        filterTasksByText("TestSelenium");
+
+        openTaskWithId(21966);
+        checkFixIn("2.0");
+
+        clickToCreateTask();
+
+        Task newTask = createNewTask("test selenide", "Ошибка", "12345678asdasdasdasdasdasdasd");
+
+        selectMenuSubsectionByText(TASKS, "Поиск задач");
+
+        filterTasksByText(newTask.getTitle());
+
+        openTaskWithId(newTask.getId());
+
+        selectMenuSubsectionByText(BOARDS, "Доска TEST");
+
+        addTaskToSprint(newTask.getId(), newTask.getTitle());
+
+        toSprintBoard();
+
+        moveTaskByIdTo(newTask.getId(), IN_WORK);
+        moveTaskByIdTo(newTask.getId(), DONE);
+
+    }
+
     @Disabled
+    @Test
+    @Order(1)
     public void TestFindingTask(){
 
         //Указать раздел меню на главной панели и его подраздел
@@ -41,9 +68,9 @@ public class BaseTest {
 
     }
 
+    @Disabled
     @Test
     @Order(2)
-    @Disabled
     void TestCreationOfNewTask(){
 
         clickToCreateTask();
@@ -58,6 +85,7 @@ public class BaseTest {
 
     }
 
+    @Disabled
     @Test
     @Order(3)
     void TestClosingTask(){
