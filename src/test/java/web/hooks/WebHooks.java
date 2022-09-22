@@ -7,7 +7,7 @@ import static utils.Configuration.getConfigurationValue;
 
 public class WebHooks {
     @BeforeAll
-    public static void authorizeAsUser() {
+    public static void setConfiguration() {
 
         Configuration.timeout = 7000;
         Configuration.startMaximized = true;
