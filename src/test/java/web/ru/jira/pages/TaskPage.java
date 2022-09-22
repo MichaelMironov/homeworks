@@ -23,6 +23,8 @@ public class TaskPage {
 
     public static SelenideElement submitButton = $x("//input[@id='create-issue-submit']");
 
+    public static SelenideElement descriptionTextArea = $x("//body[@id='tinymce']");
+
     public static int taskId;
 
     public static void selectType(String type) {
@@ -40,6 +42,7 @@ public class TaskPage {
 
     public static void setDescription(String description) {
         switchTo().frame(iframeDescription);
+        descriptionTextArea.shouldBe(Condition.visible).click();
         descriptionField.setValue(description);
         switchTo().defaultContent();
     }
