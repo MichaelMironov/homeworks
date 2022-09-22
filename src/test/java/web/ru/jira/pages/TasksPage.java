@@ -16,4 +16,6 @@ public class TasksPage {
 
     public static SelenideElement tasksCount = $x("//div[@class='showing']//child::span");
 
+    public static SelenideElement status = $x("//*[@id=\"status-val\"]/span");
+
 }

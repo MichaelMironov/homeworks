@@ -16,20 +16,26 @@ public class BaseTest extends WebHooks {
     @Test
     public void TestFullScenario(){
 
+        // 1. Авторизация
         openAuthorizationPage();
         logInAs(USER);
 
         //Указать раздел меню на главной панели и его подраздел
+        // 2. Переход в проект Test (TEST)
+        selectMenuSubsectionByText(PROJECTS,"Test (TEST)");
+
+        // 3. Переход в поиск задач и подсчет кол-ва задач
         selectMenuSubsectionByText(TASKS,"Поиск задач");
         totalCountTasks();
 
-        filterTasksByText("TestSelenium");
-
-        openTaskWithId(21966);
+        // 4. Переход в задачу TestSelenium_bug и проверка привязки в затронутой версии и статуса
+        filterTasksByText("TestSelenium_bug");
+        openTaskWithId(21967);
         checkFixIn("2.0");
+        statusShouldBe("Сделать");
 
+        // 5. Создание нового бага с описанием и перевод задачи по статусам до закрытого.
         clickToCreateTask();
-
         Task newTask = createNewTask("test selenide", "Ошибка", "12345678asdasdasdasdasdasdasd");
 
         selectMenuSubsectionByText(TASKS, "Поиск задач");

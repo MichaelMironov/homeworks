@@ -7,6 +7,7 @@ import java.util.Arrays;
 
 import static com.codeborne.selenide.Selenide.$x;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static web.ru.jira.pages.TasksPage.*;
 
 public class TasksPageSteps {
@@ -41,5 +42,8 @@ public class TasksPageSteps {
         assertEquals(expectedVersion, actualVersion);
     }
 
+    public static void statusShouldBe(String expectedStatus){
+       assertTrue(status.shouldBe(Condition.visible).getText().equalsIgnoreCase(expectedStatus));
+    }
 
 }
