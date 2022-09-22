@@ -14,7 +14,7 @@ public class BoardsPage {
 
     public static SelenideElement tasksList = $x("//a[starts-with(@class, 'aui-nav-item ')]");
 
-    public static SelenideElement activeTasks = $x("//span[@title='Активные спринты']");
+    public static SelenideElement activeTasks = $x("//span[contains(@class, 'aui-iconfont-board')]");
 
 
 }
