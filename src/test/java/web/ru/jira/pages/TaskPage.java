@@ -13,8 +13,6 @@ public class TaskPage {
 
     public static SelenideElement issueTypeField = $x("//input[@id='issuetype-field']");
 
-    public static SelenideElement iframeDescription = $x("//iframe[@class='tox-edit-area__iframe']");
-
     public static SelenideElement descriptionField = $x("//*[@id='tinymce']/p");
 
     public static SelenideElement taskTitle = $x("//input[@name='summary']");
@@ -40,7 +38,8 @@ public class TaskPage {
 
     public static void setDescription(String description) {
         switchTo().frame(0);
-        descriptionField.shouldBe(Condition.visible).setValue(description);
+        descriptionField.shouldBe(Condition.visible).click();
+        descriptionField.sendKeys(description);
         switchTo().defaultContent();
     }
 

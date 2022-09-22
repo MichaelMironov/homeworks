@@ -10,6 +10,8 @@ import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.util.concurrent.TimeUnit;
+
 import static com.codeborne.selenide.Selenide.*;
 import static web.ru.jira.pages.BoardsPage.*;
 
@@ -17,8 +19,9 @@ public class BoardsPageSteps {
 
     public static String taskName;
 
-    public static final String IN_WORK = "//li[@data-column-id=\"5\"]";
-    public static final String DONE = "//li[@data-column-id=\"6\"]";
+
+    public static final String IN_WORK = "//li[@data-column-id='5']";
+    public static final String DONE = "//li[@data-column-id='6']";
 
     @Step("Добавить задачу с id: {id} и title: {name}")
     public static void addTaskToSprint(int id, String name) {
@@ -46,21 +49,24 @@ public class BoardsPageSteps {
     public static void moveTaskByIdTo(int id, String in) {
 
         WebDriver driverRunner = WebDriverRunner.getWebDriver();
+        driverRunner.manage().timeouts().implicitlyWait(4000, TimeUnit.MILLISECONDS);
 
         WebDriverWait wait = new WebDriverWait(driverRunner, 10);
 
-        WebElement from = wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//a[@title='TEST-" + id + "']")));
+        WebElement from = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//a[@title='TEST-"+ id +"']")));
 
-        WebElement to = driverRunner.findElement(By.xpath(in));
+        WebElement to = wait.until(ExpectedConditions.elementToBeClickable(By.xpath(in)));
 
         Actions actions = new Actions(driverRunner);
-        actions.dragAndDrop(from, to).perform();
 
-        if (in.equals(IN_WORK)) {
-            wait.until(ExpectedConditions.presenceOfElementLocated(By.name("Transition"))).click();
+        if(in.equals(IN_WORK)){
+            actions.dragAndDrop(from, to).perform();
+            wait.until(ExpectedConditions.elementToBeClickable(By.name("Transition"))).click();
+            wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//a[@title='TEST-"+ id +"']")));
+            $(By.xpath("//a[@title='TEST-"+ id +"']")).shouldBe(Condition.visible).scrollTo();
+        }else{
+            wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//a[@title='TEST-"+ id +"']")));
+            actions.clickAndHold(from).moveToElement(to).release().pause(50).perform();
         }
-
-        wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//a[@title='TEST-" + id + "']")));
-
     }
 }
