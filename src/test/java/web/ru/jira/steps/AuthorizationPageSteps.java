@@ -2,14 +2,9 @@ package web.ru.jira.steps;
 
 import com.codeborne.selenide.Condition;
 import io.qameta.allure.Step;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
-import web.ru.jira.pages.AuthorizationPage;
-import web.ru.jira.pages.MainPage;
 
 import static com.codeborne.selenide.Selenide.open;
 import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 import static utils.Configuration.getConfigurationValue;
 import static web.ru.jira.pages.AuthorizationPage.*;
 
@@ -37,8 +32,6 @@ public class AuthorizationPageSteps {
         buttonLogIn.shouldBe(Condition.enabled).click();
 
         assertFalse(usernameError.isDisplayed(), "Введены некорретные учетные данные!");
-
-        assertTrue(MainPage.welcomeInfoBlock.shouldBe(Condition.visible).isDisplayed());
 
     }
 
