@@ -2,6 +2,7 @@ package web.ru.jira.elements;
 
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
+import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import web.ru.jira.pages.TaskPage;
 
@@ -17,6 +18,7 @@ public class NavigationPanel {
 
     public static final SelenideElement BOARDS = $x("//a[@id='greenhopper_menu']");
 
+    @Step("Посмотреть все проекты")
     public static NavigationPanel viewAllProjects() {
         PROJECTS.click();
         $x("//*[@id='browse_link-content']").shouldBe(Condition.visible);
@@ -24,18 +26,21 @@ public class NavigationPanel {
         return page(NavigationPanel.class);
     }
 
+    @Step("Выбрать раздел меню: {menu}")
     public static SelenideElement selectMenuSection(SelenideElement menu){
         menu.click();
         menu.shouldHave(Condition.attribute("aria-expanded", "true"));
         return menu;
     }
 
+    @Step("Выбрать раздел меню: {menu} и подраздел {text}")
     public static void selectMenuSubsectionByText(SelenideElement menu, String text){
         menu.click();
         menu.shouldHave(Condition.attribute("aria-expanded", "true"));
-        $(By.linkText(text)).click();
+        $(By.linkText(text)).shouldBe(Condition.visible).click();
     }
 
+    @Step("Нажать кнопку [создать задачу]")
     public static void clickToCreateTask(){
         $x("//a[@id=\"create_link\"]").click();
         TaskPage.sectionTaskCreation.shouldBe(Condition.appear);
