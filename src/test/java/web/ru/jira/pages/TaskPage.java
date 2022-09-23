@@ -13,7 +13,7 @@ public class TaskPage {
 
     public static SelenideElement issueTypeField = $x("//input[@id='issuetype-field']");
 
-    public static SelenideElement descriptionField = $x("//*[@id='tinymce']/p");
+    public static SelenideElement descriptionField = $x("//body[@id='tinymce']//p");
 
     public static SelenideElement taskTitle = $x("//input[@name='summary']");
 
@@ -28,7 +28,7 @@ public class TaskPage {
         issueTypeField.click();
         issueTypeField.sendKeys(Keys.BACK_SPACE);
         issueTypeField.setValue(type);
-        issueTypeField.pressEnter().shouldBe(Condition.visible);
+        issueTypeField.pressEnter();
 
     }
 
@@ -38,8 +38,7 @@ public class TaskPage {
 
     public static void setDescription(String description) {
         switchTo().frame(0);
-        descriptionField.shouldBe(Condition.visible).click();
-        descriptionField.sendKeys(description);
+        descriptionField.setValue(description);
         switchTo().defaultContent();
     }
 
@@ -47,9 +46,10 @@ public class TaskPage {
 
         submitButton.click();
 
-        messageSuccessCreation.shouldBe(Condition.appear);
+        String[] nameOfCreatedTask = messageSuccessCreation.shouldBe(Condition.visible).innerText().split("-");
 
-        String[] nameOfCreatedTask = messageSuccessCreation.innerText().split("-");
+//        String nameOfCreatedTask = Arrays.stream(messageSuccessCreation.innerText().split("-"))
+//                .reduce((first, second) -> second).get();
 
         taskId = Integer.parseInt(nameOfCreatedTask[1].trim());
 

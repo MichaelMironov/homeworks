@@ -37,6 +37,11 @@ public class TasksPageSteps {
         $(By.partialLinkText("TEST-"+id+"")).shouldBe(Condition.visible).click();
     }
 
+    @Step("Id созданной задачи должен быть: {id}")
+    public static void idCreatedTaskShouldBe(int id) {
+        $(By.partialLinkText("TEST-"+id+"")).shouldBe(Condition.visible);
+    }
+
     @Step("Проверка исправления в версии: {expectedVersion}")
     public static void checkFixIn(String expectedVersion) {
 

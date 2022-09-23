@@ -1,6 +1,8 @@
 package web.ru.jira.tests;
 
+import com.codeborne.selenide.Condition;
 import org.junit.jupiter.api.*;
+import org.slf4j.Logger;
 import web.hooks.WebHooks;
 import web.ru.jira.models.Task;
 
@@ -13,12 +15,15 @@ import static web.ru.jira.steps.TasksPageSteps.*;
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class BaseTest extends WebHooks {
 
-    @Test
-    public void TestFullScenario(){
-
+    @BeforeAll
+    public static void authorization(){
         // 1. Авторизация
         openAuthorizationPage();
         logInAs(USER);
+    }
+
+    @Test
+    public void TestFullScenario(){
 
         //Указать раздел меню на главной панели и его подраздел
         // 2. Переход в проект Test (TEST)
@@ -57,7 +62,6 @@ public class BaseTest extends WebHooks {
 
     @Disabled
     @Test
-    @Order(1)
     public void TestFindingTask(){
 
         //Указать раздел меню на главной панели и его подраздел
@@ -76,34 +80,38 @@ public class BaseTest extends WebHooks {
 
     @Disabled
     @Test
-    @Order(2)
     void TestCreationOfNewTask(){
 
         clickToCreateTask();
 
         Task newTask = createNewTask("test selenide", "Ошибка", "12345678asdasdasdasdasdasdasd");
 
+        messageSuccessCreation.shouldBe(Condition.visible);
+
         selectMenuSubsectionByText(TASKS, "Поиск задач");
 
         filterTasksByText(newTask.getTitle());
 
-        openTaskWithId(newTask.getId());
+        idCreatedTaskShouldBe(newTask.getId());
 
     }
 
     @Disabled
     @Test
-    @Order(3)
     void TestClosingTask(){
+
+        clickToCreateTask();
+
+        Task newTask = createNewTask("test selenide", "Ошибка", "12345678asdasdasdasdasdasdasd");
 
         selectMenuSubsectionByText(BOARDS, "Доска TEST");
 
-        /*Указать существущую в бэклоге задачу(id, title)
-        Или создать объект новой и передать значения, используя созданные степы */
-//        addTaskToSprint(22063,"test selenide");
+        addTaskToSprint(newTask.getId(), "test selenide");
 
-        moveTaskByIdTo(22064, IN_WORK);
-        moveTaskByIdTo(22064, DONE);
+        toSprintBoard();
+
+        moveTaskByIdTo(newTask.getId(), IN_WORK);
+        moveTaskByIdTo(newTask.getId(), DONE);
 
     }
 

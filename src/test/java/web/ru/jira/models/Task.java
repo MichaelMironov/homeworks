@@ -16,6 +16,12 @@ public class Task {
         this.description = description;
     }
 
+    public Task(String title, String type, String description) {
+        this.type = type;
+        this.title = title;
+        this.description = description;
+    }
+
     public Integer getId() {
         return id;
     }
