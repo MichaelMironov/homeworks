@@ -28,7 +28,7 @@ public class TaskPage {
         issueTypeField.click();
         issueTypeField.sendKeys(Keys.BACK_SPACE);
         issueTypeField.setValue(type);
-        issueTypeField.pressEnter();
+        issueTypeField.pressEnter().shouldBe(Condition.focused);
 
     }
 
