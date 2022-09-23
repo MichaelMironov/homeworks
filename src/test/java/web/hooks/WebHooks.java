@@ -1,6 +1,8 @@
 package web.hooks;
 
 import com.codeborne.selenide.Configuration;
+import com.codeborne.selenide.WebDriverRunner;
+import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 
 import static utils.Configuration.getConfigurationValue;
@@ -23,5 +25,10 @@ public class WebHooks {
             System.setProperty("webdriver.chrome.driver", webDriverLocation);
         }
 
+    }
+
+    @AfterAll
+    static void closeDriver(){
+        WebDriverRunner.closeWebDriver();
     }
 }
