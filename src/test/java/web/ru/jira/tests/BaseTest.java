@@ -22,6 +22,11 @@ public class BaseTest extends WebHooks {
         logInAs(USER);
     }
 
+    @AfterAll
+    public static void postCondition(){
+        deleteSuccessfulTask(false);
+    }
+
     @Test
     public void TestFullScenario(){
 

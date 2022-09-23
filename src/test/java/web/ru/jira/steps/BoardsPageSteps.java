@@ -18,6 +18,7 @@ import static web.ru.jira.pages.BoardsPage.*;
 public class BoardsPageSteps {
 
     public static String taskName;
+    public static int taskId;
 
 
     public static final String IN_WORK = "//li[@data-column-id='5']";
@@ -27,6 +28,7 @@ public class BoardsPageSteps {
     public static void addTaskToSprint(int id, String name) {
 
         taskName = id + " " + name;
+        taskId = id;
         tasksList.click();
         searcherBacklogTasks.setValue(taskName).should(Condition.appear);
         $x("//div[@class=\"ghx-description\"]").should(Condition.visible);
@@ -67,6 +69,17 @@ public class BoardsPageSteps {
         }else{
             wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//a[@title='TEST-"+ id +"']")));
             actions.clickAndHold(from).moveToElement(to).release().pause(100).perform();
+        }
+    }
+
+    public static void deleteSuccessfulTask(boolean answer){
+        if(answer){
+            $x("//a[contains(@title, 'TEST-"+taskId+"')]/parent::div/following-sibling::div")
+                    .shouldBe(Condition.visible)
+                    .contextClick();
+            $x("//div[@class='aui-list']").shouldBe(Condition.visible, Condition.appear);
+            $(By.linkText("Удалить")).click();
+            $x("//input[@name='Delete']").shouldBe(Condition.visible).click();
         }
     }
 }
