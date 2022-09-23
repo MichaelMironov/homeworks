@@ -66,7 +66,7 @@ public class BoardsPageSteps {
             $(By.xpath("//a[@title='TEST-"+ id +"']")).shouldBe(Condition.visible).scrollTo();
         }else{
             wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//a[@title='TEST-"+ id +"']")));
-            actions.clickAndHold(from).moveToElement(to).release().pause(50).perform();
+            actions.clickAndHold(from).moveToElement(to).release().pause(100).perform();
         }
     }
 }
