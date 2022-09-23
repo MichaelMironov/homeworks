@@ -2,9 +2,11 @@ package web.ru.jira.steps;
 
 import com.codeborne.selenide.Condition;
 import io.qameta.allure.Step;
+import org.openqa.selenium.By;
 
 import java.util.Arrays;
 
+import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.$x;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -21,15 +23,18 @@ public class TasksPageSteps {
 
     @Step("Общее количество задач")
     public static void totalCountTasks() {
-        String[] temp = tasksCount.innerText().split(" ");
 
-        //TODO by logger
+        System.out.println("Общее количество задач: " + $x("//span[starts-with(@class, 'results-count-total')]")
+                .shouldBe(Condition.visible).innerText());
+        /*
+        String[] temp = tasksCount.innerText().split(" ");
         System.out.println("Общее количество задач: " + temp[temp.length - 1]);
+        */
     }
 
     @Step("Открыть задачу с id: {id}")
     public static void openTaskWithId(int id) {
-        $x("//li[contains(@data-key, 'TEST-" + id + "')]").shouldBe(Condition.visible).click();
+        $(By.partialLinkText("TEST-"+id+"")).shouldBe(Condition.visible).click();
     }
 
     @Step("Проверка исправления в версии: {expectedVersion}")
