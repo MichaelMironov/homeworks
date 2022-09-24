@@ -34,7 +34,7 @@ public class BoardsPageSteps {
         $x("//div[@class=\"ghx-description\"]").should(Condition.visible);
 
         $x("//div[contains(@data-issue-key, " + id + ")]")
-                .shouldBe(Condition.exist).contextClick().$(By.linkText("Доска Спринт 1"));
+                .shouldBe(Condition.exist).contextClick().$(By.partialLinkText("Доска Спринт 1"));
 
         $(By.linkText("Доска Спринт 1")).shouldBe(Condition.visible).click();
 
