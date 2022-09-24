@@ -1,10 +1,11 @@
 package web.ru.jira.steps;
 
 import com.codeborne.selenide.SelenideElement;
-import io.cucumber.java.ru.Дано;
-import io.cucumber.java.ru.Затем;
-import io.cucumber.java.ru.И;
-import io.cucumber.java.ru.Тогда;
+import io.cucumber.java.ru.Р”Р°РЅРѕ;
+import io.cucumber.java.ru.Р—Р°С‚РµРј;
+import io.cucumber.java.ru.Р;
+import io.cucumber.java.ru.РўРѕРіРґР°;
+import web.hooks.WebHooks;
 import web.ru.jira.models.Task;
 
 import static web.ru.jira.elements.NavigationPanel.*;
@@ -17,60 +18,60 @@ import static web.ru.jira.steps.TasksPageSteps.*;
 
 public class StepsDefinitions {
 
-    @Дано("пользователь авторизован в системе как ([^\"]*)")
+    @Р”Р°РЅРѕ("^РїРѕР»СЊР·РѕРІР°С‚РµР»СЊ Р°РІС‚РѕСЂРёР·РѕРІР°РЅ РІ СЃРёСЃС‚РµРјРµ РєР°Рє ([^\"]*)$")
     public static void authorizeAs(String user){
         openAuthorizationPage();
         logInAs(user);
     }
 
-    @Тогда("в разделе ([^\"]*) выбрать подраздел ([^\"]*)")
+    @РўРѕРіРґР°("^РІ СЂР°Р·РґРµР»Рµ ([^\"]*) РІС‹Р±СЂР°С‚СЊ РїРѕРґСЂР°Р·РґРµР» ([^\"]*)$")
     public static void chooseSubMenu(String menu, String submenu){
         SelenideElement elem = null;
 
         switch (menu){
-            case "Задачи": elem = TASKS;
+            case "Р—Р°РґР°С‡Рё": elem = TASKS;
         }
 
         selectMenuSubsectionByText(elem, submenu);
     }
 
-    @И("проверить общее количество заведенных задач в проекте")
+    @Р("^РїСЂРѕРІРµСЂРёС‚СЊ РѕР±С‰РµРµ РєРѕР»РёС‡РµСЃС‚РІРѕ Р·Р°РІРµРґРµРЅРЅС‹С… Р·Р°РґР°С‡ РІ РїСЂРѕРµРєС‚Рµ$")
     public static void tasksCount(){
         totalCountTasks();
     }
 
-    @Затем("перейти в задачу с названием - ([^\"]*) и id - (\\d+)")
+    @Р—Р°С‚РµРј("^РїРµСЂРµР№С‚Рё РІ Р·Р°РґР°С‡Сѓ СЃ РЅР°Р·РІР°РЅРёРµРј - ([^\"]*) Рё id - (\\d+)$")
     public static void goToTask(String title, int id){
         filterTasksByText(title);
         openTaskWithId(id);
     }
 
-    @И("статус задачи - ([^\"]*), исправить в версиях - ([^\"]*)")
+    @Р("^СЃС‚Р°С‚СѓСЃ Р·Р°РґР°С‡Рё - ([^\"]*), РёСЃРїСЂР°РІРёС‚СЊ РІ РІРµСЂСЃРёСЏС… - ([^\"]*)$")
     public static void checkTask(String status, String version){
         statusShouldBe(status);
         checkFixIn(version);
     }
 
-    @Затем("создать новую задачу с типом ([^\"]*), именем ([^\"]*) и описанием ([^\"]*)")
+    @Р—Р°С‚РµРј("^СЃРѕР·РґР°С‚СЊ РЅРѕРІСѓСЋ Р·Р°РґР°С‡Сѓ СЃ С‚РёРїРѕРј ([^\"]*), РёРјРµРЅРµРј ([^\"]*) Рё РѕРїРёСЃР°РЅРёРµРј ([^\"]*)$")
     public static void createTask(String type, String title, String description){
         clickToCreateTask();
         newTask = createNewTask(title, type, description);
     }
 
-    @И("перенести новую задачу на скрам-доске в колонку ([^\"]*)")
+    @Р("^РїРµСЂРµРЅРµСЃС‚Рё РЅРѕРІСѓСЋ Р·Р°РґР°С‡Сѓ РЅР° СЃРєСЂР°Рј-РґРѕСЃРєРµ РІ РєРѕР»РѕРЅРєСѓ ([^\"]*)$")
     public static void movingTo(String column){
 
         switch (column){
-            case "Выполнено": column = DONE;
+            case "Р’С‹РїРѕР»РЅРµРЅРѕ": column = DONE;
         }
 
-        selectMenuSubsectionByText(TASKS, "Поиск задач");
+        selectMenuSubsectionByText(TASKS, "РџРѕРёСЃРє Р·Р°РґР°С‡");
 
         filterTasksByText(newTask.getTitle());
 
         openTaskWithId(newTask.getId());
 
-        selectMenuSubsectionByText(BOARDS, "Доска TEST");
+        selectMenuSubsectionByText(BOARDS, "Р”РѕСЃРєР° TEST");
 
         addTaskToSprint(newTask.getId(), newTask.getTitle());
 
