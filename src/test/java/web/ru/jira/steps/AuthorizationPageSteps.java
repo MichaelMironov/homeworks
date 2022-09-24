@@ -6,6 +6,7 @@ import io.qameta.allure.Step;
 import static com.codeborne.selenide.Selenide.open;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static utils.Configuration.getConfigurationValue;
+import static web.hooks.WebHooks.setConfiguration;
 import static web.ru.jira.pages.AuthorizationPage.*;
 
 public class AuthorizationPageSteps {
@@ -14,6 +15,7 @@ public class AuthorizationPageSteps {
 
     @Step("Открыть страницу авторизации")
     public static void openAuthorizationPage(){
+        setConfiguration();
         open(getConfigurationValue("authorizeUrl"));
     }
 
