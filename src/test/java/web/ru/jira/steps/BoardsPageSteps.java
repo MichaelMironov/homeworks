@@ -62,8 +62,8 @@ public class BoardsPageSteps {
         Actions actions = new Actions(driverRunner);
 
         if(in.equals(IN_WORK)){
-            actions.dragAndDrop(from, to).pause(100).perform();
-            wait.until(ExpectedConditions.elementToBeClickable(By.name("Transition"))).click();
+            actions.dragAndDrop(from, to).perform();
+            wait.until(ExpectedConditions.presenceOfElementLocated(By.name("Transition"))).click();
             wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//a[@title='TEST-"+ id +"']")));
             $(By.xpath("//a[@title='TEST-"+ id +"']")).shouldBe(Condition.visible).scrollTo();
         }else{
