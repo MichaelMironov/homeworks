@@ -42,7 +42,7 @@ public class BaseTest extends WebHooks {
         filterTasksByText("TestSelenium_bug");
         openTaskWithId(21967);
         checkFixIn("2.0");
-        statusShouldBe("Сделать");
+        statusShouldBe("В работе");
 
         // 5. Создание нового бага с описанием и перевод задачи по статусам до закрытого.
         clickToCreateTask();
@@ -87,7 +87,7 @@ public class BaseTest extends WebHooks {
     @Test
     void TestCreationOfNewTask(){
 
-        selectMenuSubsectionByText(TASKS, "Поиск задач");
+        selectMenuSubsectionByText(TASKS,"Поиск задач");
 
         clickToCreateTask();
 
@@ -106,8 +106,8 @@ public class BaseTest extends WebHooks {
     @Disabled
     @Test
     void TestClosingTask(){
-        
-        selectMenuSubsectionByText(TASKS, "Поиск задач");
+
+        selectMenuSubsectionByText(TASKS,"Поиск задач");
 
         clickToCreateTask();
 
