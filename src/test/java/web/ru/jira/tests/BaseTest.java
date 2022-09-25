@@ -87,6 +87,8 @@ public class BaseTest extends WebHooks {
     @Test
     void TestCreationOfNewTask(){
 
+        selectMenuSubsectionByText(TASKS, "Поиск задач");
+
         clickToCreateTask();
 
         Task newTask = createNewTask("test selenide", "Ошибка", "12345678asdasdasdasdasdasdasd");
@@ -104,6 +106,8 @@ public class BaseTest extends WebHooks {
     @Disabled
     @Test
     void TestClosingTask(){
+        
+        selectMenuSubsectionByText(TASKS, "Поиск задач");
 
         clickToCreateTask();
 
