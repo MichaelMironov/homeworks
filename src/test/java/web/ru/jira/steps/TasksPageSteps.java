@@ -1,6 +1,7 @@
 package web.ru.jira.steps;
 
 import com.codeborne.selenide.Condition;
+import com.codeborne.selenide.SelenideElement;
 import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 
@@ -53,7 +54,8 @@ public class TasksPageSteps {
     }
 
     public static void statusShouldBe(String expectedStatus){
-       assertTrue(status.shouldBe(Condition.visible).getText().equalsIgnoreCase(expectedStatus));
+        String actualStatus = $x("//span[@id='status-val']//span").shouldBe(Condition.visible).innerText();
+        assertEquals(expectedStatus,actualStatus);
     }
 
 }
