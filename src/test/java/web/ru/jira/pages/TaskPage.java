@@ -61,6 +61,7 @@ public class TaskPage {
         selectType(type);
         setDescription(description);
         submitTask();
+        messageSuccessCreation.shouldBe(Condition.visible);
         return new Task(title, type, description, taskId);
     }
 

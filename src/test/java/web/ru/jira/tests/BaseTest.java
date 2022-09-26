@@ -16,8 +16,7 @@ import static web.ru.jira.steps.TasksPageSteps.*;
 public class BaseTest extends WebHooks {
 
     @BeforeAll
-    public static void authorization(){
-        // 1. Авторизация
+    public static void authorizationAsUser(){
         openAuthorizationPage();
         logInAs(USER);
     }
@@ -28,100 +27,40 @@ public class BaseTest extends WebHooks {
     }
 
     @Test
-    public void TestFullScenario(){
-
-        //Указать раздел меню на главной панели и его подраздел
-        // 2. Переход в проект Test (TEST)
-        selectMenuSubsectionByText(PROJECTS,"Test (TEST)");
-
-        // 3. Переход в поиск задач и подсчет кол-ва задач
+    void TestCountTasks(){
         selectMenuSubsectionByText(TASKS,"Поиск задач");
         totalCountTasks();
+    }
 
-        // 4. Переход в задачу TestSelenium_bug и проверка привязки в затронутой версии и статуса
+    @Test
+    void TestStatusTask(){
+        selectMenuSubsectionByText(TASKS,"Поиск задач");
         filterTasksByText("TestSelenium_bug");
         openTaskWithId(21967);
-        checkFixIn("2.0");
         statusShouldBe("В работе");
-
-        // 5. Создание нового бага с описанием и перевод задачи по статусам до закрытого.
-        clickToCreateTask();
-        Task newTask = createNewTask("test selenide", "Ошибка", "12345678asdasdasdasdasdasdasd");
-
-        selectMenuSubsectionByText(TASKS, "Поиск задач");
-
-        filterTasksByText(newTask.getTitle());
-
-        openTaskWithId(newTask.getId());
-
-        selectMenuSubsectionByText(BOARDS, "Доска TEST");
-
-        addTaskToSprint(newTask.getId(), newTask.getTitle());
-
-        toSprintBoard();
-
-        moveTaskByIdTo(newTask.getId(), IN_WORK);
-        moveTaskByIdTo(newTask.getId(), DONE);
-
+        checkFixIn("2.0");
     }
 
-    @Disabled
-    @Test
-    public void TestFindingTask(){
-
-        //Указать раздел меню на главной панели и его подраздел
-        selectMenuSubsectionByText(TASKS,"Поиск задач");
-        totalCountTasks();
-
-        filterTasksByText("TestSelenium");
-
-        openTaskWithId(21966);
-        checkFixIn("2.0");
-
-        openTaskWithId(21967);
-        checkFixIn("2.0");
-
-    }
-
-    @Disabled
     @Test
     void TestCreationOfNewTask(){
-
         selectMenuSubsectionByText(TASKS,"Поиск задач");
-
         clickToCreateTask();
-
         Task newTask = createNewTask("test selenide", "Ошибка", "12345678asdasdasdasdasdasdasd");
-
-        messageSuccessCreation.shouldBe(Condition.visible);
-
         selectMenuSubsectionByText(TASKS, "Поиск задач");
-
         filterTasksByText(newTask.getTitle());
-
         idCreatedTaskShouldBe(newTask.getId());
-
     }
 
-    @Disabled
     @Test
     void TestClosingTask(){
-
         selectMenuSubsectionByText(TASKS,"Поиск задач");
-
         clickToCreateTask();
-
         Task newTask = createNewTask("test selenide", "Ошибка", "12345678asdasdasdasdasdasdasd");
-
         selectMenuSubsectionByText(BOARDS, "Доска TEST");
-
         addTaskToSprint(newTask.getId(), "test selenide");
-
         toSprintBoard();
-
         moveTaskByIdTo(newTask.getId(), IN_WORK);
         moveTaskByIdTo(newTask.getId(), DONE);
-
     }
 
 }
