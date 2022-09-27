@@ -1,4 +1,4 @@
-package web.ru.jira.steps;
+package web.ru.jira.tests;
 
 
 import io.cucumber.junit.Cucumber;
@@ -7,9 +7,9 @@ import org.junit.runner.RunWith;
 
 @RunWith(Cucumber.class)
 @CucumberOptions(
-        plugin = {"pretty"},
         glue = {"steps", "hooks"},
-        features = "classpath:features")
+        features = "classpath:features",
+        plugin = {"pretty"})
 public class RunnerTest {
 
 }
