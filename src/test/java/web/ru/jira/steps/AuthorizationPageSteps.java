@@ -3,10 +3,10 @@ package web.ru.jira.steps;
 import com.codeborne.selenide.Condition;
 import io.qameta.allure.Step;
 
+import static com.codeborne.selenide.Selenide.$x;
 import static com.codeborne.selenide.Selenide.open;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static utils.Configuration.getConfigurationValue;
-import static web.ru.jira.hooks.WebHooks.setConfiguration;
 import static web.ru.jira.pages.AuthorizationPage.*;
 
 public class AuthorizationPageSteps {
@@ -15,7 +15,6 @@ public class AuthorizationPageSteps {
 
     @Step("Открыть страницу авторизации")
     public static void openAuthorizationPage(){
-        setConfiguration();
         open(getConfigurationValue("authorizeUrl"));
     }
 
@@ -35,6 +34,12 @@ public class AuthorizationPageSteps {
 
         assertFalse(usernameError.isDisplayed(), "Введены некорретные учетные данные!");
 
+    }
+
+    @Step("Выйти из системы")
+    public static void logOut(){
+        $x("//span[@class='aui-avatar-inner']").shouldBe(Condition.visible).click();
+        $x("//a[@id='log_out']").shouldBe(Condition.visible).click();
     }
 
 }
