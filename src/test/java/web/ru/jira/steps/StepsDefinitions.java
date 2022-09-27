@@ -1,4 +1,4 @@
-package web.ru.jira.stepsdefs;
+package web.ru.jira.steps;
 
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
@@ -21,7 +21,7 @@ public class StepsDefinitions {
 
     @Дано("^пользователь авторизован в системе как ([^\"]*)$")
     public static void authorizeAs(String user) {
-//        openAuthorizationPage();
+        openAuthorizationPage();
         logInAs(user);
     }
 
