@@ -1,9 +1,7 @@
 package web.ru.jira.tests;
 
-import com.codeborne.selenide.Condition;
 import org.junit.jupiter.api.*;
-import org.slf4j.Logger;
-import web.hooks.WebHooks;
+import web.ru.jira.hooks.WebHooks;
 import web.ru.jira.models.Task;
 
 import static web.ru.jira.elements.NavigationPanel.*;

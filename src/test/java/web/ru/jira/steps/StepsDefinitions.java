@@ -1,5 +1,6 @@
-package web.ru.jira.steps;
+package web.ru.jira.stepsdefs;
 
+import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
 import io.cucumber.java.ru.Дано;
 import io.cucumber.java.ru.Затем;
@@ -7,6 +8,7 @@ import io.cucumber.java.ru.И;
 import io.cucumber.java.ru.Тогда;
 import web.ru.jira.models.Task;
 
+import static com.codeborne.selenide.Selenide.*;
 import static web.ru.jira.elements.NavigationPanel.*;
 import static web.ru.jira.pages.TaskPage.createNewTask;
 import static web.ru.jira.steps.AuthorizationPageSteps.logInAs;
@@ -19,7 +21,7 @@ public class StepsDefinitions {
 
     @Дано("^пользователь авторизован в системе как ([^\"]*)$")
     public static void authorizeAs(String user) {
-        openAuthorizationPage();
+//        openAuthorizationPage();
         logInAs(user);
     }
 
@@ -88,4 +90,19 @@ public class StepsDefinitions {
     }
 
     static Task newTask;
+
+    @Тогда("^статус новой задачи - ([^\"]*)$")
+    public void statusTask(String status) {
+        $x("//a[contains(@title, 'TEST-"+taskId+"')]")
+                .shouldBe(Condition.visible)
+                .doubleClick().scrollIntoView(true);
+
+        statusShouldBe(status);
+    }
+
+    @Дано("^открыта страницу по адресу: ([^\"]*)$")
+    public void openPageFromUrl(String url) {
+        open(url);
+    }
+
 }

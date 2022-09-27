@@ -1,4 +1,4 @@
-package web.hooks;
+package web.ru.jira.hooks;
 
 import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.WebDriverRunner;
