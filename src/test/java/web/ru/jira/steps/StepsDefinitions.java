@@ -2,10 +2,7 @@ package web.ru.jira.steps;
 
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
-import io.cucumber.java.ru.Дано;
-import io.cucumber.java.ru.Затем;
-import io.cucumber.java.ru.И;
-import io.cucumber.java.ru.Тогда;
+import io.cucumber.java.ru.*;
 import web.ru.jira.models.Task;
 
 import static com.codeborne.selenide.Selenide.*;
@@ -84,9 +81,8 @@ public class StepsDefinitions {
 
         toSprintBoard();
 
-        moveTaskByIdTo(newTask.getId(), IN_WORK);
-        if (column.equalsIgnoreCase(DONE))
-            moveTaskByIdTo(newTask.getId(), column);
+        moveTaskByIdTo(newTask.getId(), column);
+
     }
 
     static Task newTask;
