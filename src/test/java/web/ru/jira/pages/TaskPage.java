@@ -2,12 +2,16 @@ package web.ru.jira.pages;
 
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 import org.openqa.selenium.Keys;
 import web.ru.jira.models.Task;
 
 import static com.codeborne.selenide.Selenide.*;
 
 public class TaskPage {
+
+    private static final Logger LOGGER = LogManager.getLogger(TasksPage.class);
 
     public static SelenideElement sectionTaskCreation = $x("//section[@id=\"create-issue-dialog\"]");
 
@@ -48,15 +52,14 @@ public class TaskPage {
 
         String[] nameOfCreatedTask = messageSuccessCreation.shouldBe(Condition.visible).innerText().split("-");
 
-//        String nameOfCreatedTask = Arrays.stream(messageSuccessCreation.innerText().split("-"))
-//                .reduce((first, second) -> second).get();
-
         taskId = Integer.parseInt(nameOfCreatedTask[1].trim());
 
-        System.out.println("Id созданной задачи: " + nameOfCreatedTask[1]); //TODO
+        LOGGER.info("Id созданной задачи: " + taskId);
+
     }
 
     public static Task createNewTask(String title, String type, String description) {
+        LOGGER.info("Создание задачи. Название: " + title + ". Тип: " + type + ". Описание: " + description);
         setTitle(title);
         selectType(type);
         setDescription(description);

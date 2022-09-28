@@ -3,12 +3,16 @@ package web.ru.jira.steps;
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
 import io.qameta.allure.Step;
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 import org.openqa.selenium.By;
 
 import static com.codeborne.selenide.Selenide.*;
 import static web.ru.jira.pages.BoardsPage.*;
 
 public class BoardsPageSteps {
+
+    private static final Logger LOGGER = LogManager.getLogger(BoardsPageSteps.class);
 
     public static String taskName;
     public static int taskId;
@@ -19,6 +23,8 @@ public class BoardsPageSteps {
 
     @Step("Добавить задачу с id: {id} и title: {name}")
     public static void addTaskToSprint(int id, String name) {
+
+        LOGGER.info("Добавить задачу в активный спринт");
 
         taskName = id + " " + name;
         taskId = id;
@@ -33,11 +39,13 @@ public class BoardsPageSteps {
 
         confirmButton.click();
 
+        LOGGER.info("Задача с id: " + id + " добавлена в активный спринт");
     }
 
     @Step("Перейти к доске текущего спринта")
     public static void toSprintBoard() {
         activeTasks.shouldBe(Condition.visible).doubleClick();
+        LOGGER.info("Переход к доске активного спринта");
     }
 
     @Step("Переместить задачу с id: {id} в {in}")

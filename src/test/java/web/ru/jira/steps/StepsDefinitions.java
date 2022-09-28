@@ -3,6 +3,8 @@ package web.ru.jira.steps;
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
 import io.cucumber.java.ru.*;
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 import web.ru.jira.models.Task;
 
 import static com.codeborne.selenide.Selenide.*;
@@ -11,10 +13,11 @@ import static web.ru.jira.pages.TaskPage.createNewTask;
 import static web.ru.jira.steps.AuthorizationPageSteps.logInAs;
 import static web.ru.jira.steps.AuthorizationPageSteps.openAuthorizationPage;
 import static web.ru.jira.steps.BoardsPageSteps.*;
-import static web.ru.jira.steps.BoardsPageSteps.DONE;
 import static web.ru.jira.steps.TasksPageSteps.*;
 
 public class StepsDefinitions {
+
+    private static final Logger LOGGER = LogManager.getLogger(StepsDefinitions.class);
 
     @Дано("^пользователь авторизован в системе как ([^\"]*)$")
     public static void authorizeAs(String user) {
@@ -60,6 +63,8 @@ public class StepsDefinitions {
     @И("^перенести новую задачу на скрам-доске в колонку ([^\"]*)$")
     public static void movingTo(String column) {
 
+        String temp = column;
+
         switch (column) {
             case "Выполнено":
                 column = DONE;
@@ -82,6 +87,8 @@ public class StepsDefinitions {
         toSprintBoard();
 
         moveTaskByIdTo(newTask.getId(), column);
+
+        LOGGER.info("Перенос задачи в колонку - " + temp);
 
     }
 

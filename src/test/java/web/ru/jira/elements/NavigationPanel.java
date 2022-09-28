@@ -3,8 +3,11 @@ package web.ru.jira.elements;
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
 import io.qameta.allure.Step;
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 import org.openqa.selenium.By;
 import web.ru.jira.pages.TaskPage;
+import web.ru.jira.steps.BoardsPageSteps;
 
 import static com.codeborne.selenide.Selenide.*;
 
@@ -17,6 +20,8 @@ public class NavigationPanel {
     public static final SelenideElement ALL_PROJECTS = $x("//*[@id='project_view_all_link_lnk']");
 
     public static final SelenideElement BOARDS = $x("//a[@id='greenhopper_menu']");
+
+    private static final Logger LOGGER = LogManager.getLogger(BoardsPageSteps.class);
 
     @Step("Посмотреть все проекты")
     public static NavigationPanel viewAllProjects() {
@@ -38,6 +43,7 @@ public class NavigationPanel {
         menu.click();
         menu.shouldHave(Condition.attribute("aria-expanded", "true"));
         $(By.linkText(text)).shouldBe(Condition.visible).click();
+        LOGGER.info("Переход в подраздел - " + text);
     }
 
     @Step("Нажать кнопку [создать задачу]")
