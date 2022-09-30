@@ -9,7 +9,8 @@ import org.junit.runner.RunWith;
 @CucumberOptions(
         glue = {"steps", "hooks"},
         features = "classpath:features",
-        plugin = {"pretty"})
+        plugin = {"pretty"},
+        tags = "@jira")
 public class RunnerTest {
 
 }
