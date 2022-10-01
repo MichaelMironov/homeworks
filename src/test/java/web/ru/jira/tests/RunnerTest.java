@@ -7,7 +7,7 @@ import org.junit.runner.RunWith;
 
 @RunWith(Cucumber.class)
 @CucumberOptions(
-        glue = {"steps", "hooks"},
+        glue = {"web.ru.jira.steps", "web.ru.jira.hooks"},
         features = "classpath:features",
         plugin = {"pretty"},
         tags = "@jira")
