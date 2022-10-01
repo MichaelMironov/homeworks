@@ -7,7 +7,6 @@ import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.openqa.selenium.By;
 import web.ru.jira.pages.TaskPage;
-import web.ru.jira.steps.BoardsPageSteps;
 
 import static com.codeborne.selenide.Selenide.*;
 
@@ -21,7 +20,9 @@ public class NavigationPanel {
 
     public static final SelenideElement BOARDS = $x("//a[@id='greenhopper_menu']");
 
-    private static final Logger LOGGER = LogManager.getLogger(BoardsPageSteps.class);
+    private static final SelenideElement createTaskButton = $x("//a[@id=\"create_link\"]");
+
+    private static final Logger LOGGER = LogManager.getLogger(NavigationPanel.class);
 
     @Step("Посмотреть все проекты")
     public static NavigationPanel viewAllProjects() {
@@ -48,7 +49,7 @@ public class NavigationPanel {
 
     @Step("Нажать кнопку [создать задачу]")
     public static void clickToCreateTask(){
-        $x("//a[@id=\"create_link\"]").click();
+        createTaskButton.click();
         TaskPage.sectionTaskCreation.shouldBe(Condition.appear);
     }
 

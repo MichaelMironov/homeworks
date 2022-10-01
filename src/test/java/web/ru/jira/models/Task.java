@@ -62,7 +62,7 @@ public class Task {
         this.description = description;
     }
 
-    private enum TaskType {
+    public enum TaskType {
 
         TASK("задача"),
         BUG("ошибка"),

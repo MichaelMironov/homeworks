@@ -4,8 +4,8 @@ import io.cucumber.java.After;
 import io.cucumber.java.Before;
 import io.cucumber.java.Scenario;
 
-import static web.ru.jira.hooks.WebHooks.setConfiguration;
-import static web.ru.jira.steps.AuthorizationPageSteps.logOut;
+import static web.hooks.WebHooks.setConfiguration;
+import static web.ru.jira.pages.AuthorizationPage.logOut;
 
 public class CucumberHooks {
     @Before()

@@ -10,10 +10,10 @@ import web.ru.jira.models.Task;
 import static com.codeborne.selenide.Selenide.*;
 import static web.ru.jira.elements.NavigationPanel.*;
 import static web.ru.jira.pages.TaskPage.createNewTask;
-import static web.ru.jira.steps.AuthorizationPageSteps.logInAs;
-import static web.ru.jira.steps.AuthorizationPageSteps.openAuthorizationPage;
-import static web.ru.jira.steps.BoardsPageSteps.*;
-import static web.ru.jira.steps.TasksPageSteps.*;
+import static web.ru.jira.pages.AuthorizationPage.logInAs;
+import static web.ru.jira.pages.AuthorizationPage.openAuthorizationPage;
+import static web.ru.jira.pages.BoardsPage.*;
+import static web.ru.jira.pages.TasksPage.*;
 
 public class StepsDefinitions {
 

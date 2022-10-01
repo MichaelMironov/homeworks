@@ -1,14 +1,14 @@
 package web.ru.jira.tests;
 
 import org.junit.jupiter.api.*;
-import web.ru.jira.hooks.WebHooks;
+import web.hooks.WebHooks;
 import web.ru.jira.models.Task;
 
 import static web.ru.jira.elements.NavigationPanel.*;
 import static web.ru.jira.pages.TaskPage.*;
-import static web.ru.jira.steps.AuthorizationPageSteps.*;
-import static web.ru.jira.steps.BoardsPageSteps.*;
-import static web.ru.jira.steps.TasksPageSteps.*;
+import static web.ru.jira.pages.AuthorizationPage.*;
+import static web.ru.jira.pages.BoardsPage.*;
+import static web.ru.jira.pages.TasksPage.*;
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class BaseTest extends WebHooks {

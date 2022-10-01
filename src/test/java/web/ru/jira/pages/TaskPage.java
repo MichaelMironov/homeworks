@@ -11,19 +11,19 @@ import static com.codeborne.selenide.Selenide.*;
 
 public class TaskPage {
 
-    private static final Logger LOGGER = LogManager.getLogger(TasksPage.class);
+    private static final Logger LOGGER = LogManager.getLogger(TaskPage.class);
 
-    public static SelenideElement sectionTaskCreation = $x("//section[@id=\"create-issue-dialog\"]");
+    private static final SelenideElement issueTypeField = $x("//input[@id='issuetype-field']");
 
-    public static SelenideElement issueTypeField = $x("//input[@id='issuetype-field']");
+    private static final SelenideElement descriptionField = $x("//body[@id='tinymce']//p");
 
-    public static SelenideElement descriptionField = $x("//body[@id='tinymce']//p");
+    private static final SelenideElement taskTitle = $x("//input[@name='summary']");
 
-    public static SelenideElement taskTitle = $x("//input[@name='summary']");
+    private static final SelenideElement messageSuccessCreation = $x("//a[@class=\"issue-created-key issue-link\"]");
 
-    public static SelenideElement messageSuccessCreation = $x("//a[@class=\"issue-created-key issue-link\"]");
+    public static final SelenideElement sectionTaskCreation = $x("//section[@id=\"create-issue-dialog\"]");
 
-    public static SelenideElement submitButton = $x("//input[@id='create-issue-submit']");
+    private static final SelenideElement submitButton = $x("//input[@id='create-issue-submit']");
 
     public static int taskId;
 
