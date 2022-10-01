@@ -5,6 +5,8 @@ import com.codeborne.selenide.WebDriverRunner;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 
+import java.util.Objects;
+
 import static utils.Configuration.getConfigurationValue;
 
 public class WebHooks {
@@ -29,6 +31,8 @@ public class WebHooks {
 
     @AfterAll
     static void closeDriver(){
-        WebDriverRunner.closeWebDriver();
+        if(Objects.nonNull(WebDriverRunner.getWebDriver())){
+            WebDriverRunner.getWebDriver().quit();
+        }
     }
 }
