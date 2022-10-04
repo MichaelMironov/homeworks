@@ -1,4 +1,4 @@
-package api.com.rickandmortyapi.spec;
+package api.com.rickandmortyapi;
 
 import io.restassured.RestAssured;
 import io.restassured.builder.RequestSpecBuilder;
@@ -11,17 +11,6 @@ public class Specification {
 
         return new RequestSpecBuilder()
                 .setBaseUri(url)
-                .setAccept(ContentType.JSON)
-                .setContentType(ContentType.JSON)
-                .log(LogDetail.ALL)
-                .build();
-    }
-
-    public static RequestSpecification requestSpecWithHeader(String url, String header){
-
-        return new RequestSpecBuilder()
-                .setBaseUri(url)
-                .addHeader("Authorization", header)
                 .setAccept(ContentType.JSON)
                 .setContentType(ContentType.JSON)
                 .log(LogDetail.ALL)
