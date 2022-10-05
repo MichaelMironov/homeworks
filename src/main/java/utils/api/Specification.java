@@ -1,4 +1,4 @@
-package api.com.rickandmortyapi;
+package utils.api;
 
 import io.restassured.RestAssured;
 import io.restassured.builder.RequestSpecBuilder;
@@ -16,6 +16,18 @@ public class Specification {
                 .log(LogDetail.ALL)
                 .build();
     }
+
+    public static RequestSpecification requestSpecWithSession(String url, String sessionId){
+
+        return new RequestSpecBuilder()
+                .setBaseUri(url)
+                .setSessionId(sessionId)
+                .setAccept(ContentType.JSON)
+                .setContentType(ContentType.JSON)
+                .log(LogDetail.ALL)
+                .build();
+    }
+
 
     public static void installSpecification(RequestSpecification request){
         RestAssured.requestSpecification = request;

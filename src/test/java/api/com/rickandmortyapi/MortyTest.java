@@ -1,35 +1,29 @@
-package api.test;
+package api.com.rickandmortyapi;
 
 import api.com.rickandmortyapi.pojo.characters.Person;
-import api.com.rickandmortyapi.spec.Specification;
-import org.json.JSONObject;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.List;
 
-import static api.com.rickandmortyapi.steps.Steps.*;
+import static api.com.rickandmortyapi.Steps.*;
 import static io.restassured.RestAssured.baseURI;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 public class MortyTest {
 
-    private static int EPISODE_ID;
     private static final Logger LOGGER = LoggerFactory.getLogger(MortyTest.class);
 
     @BeforeAll
     public static void prepare() throws IOException {
 
         System.getProperties().load(ClassLoader.getSystemResourceAsStream("test.properties"));
-        String  baseUri = System.getProperty("mortyUrl");
+        String baseUri = System.getProperty("mortyUrl");
         if (baseUri == null || baseUri.isEmpty()) {
-            throw new RuntimeException("В файле \"test.properties\" отсутствует значение \"base.uri\"");
+            throw new RuntimeException("В файле \"test.properties\" отсутствует значение \"mortyUrl\"");
         }
         baseURI = baseUri;
         Specification.installSpecification(Specification.requestSpec(baseURI));
@@ -37,30 +31,25 @@ public class MortyTest {
     }
 
     @Test
-    void characterLastEpisodeTest() throws IOException {
+    void characterComparingTest() {
 
-        JSONObject morty = new JSONObject(new String(Files.readAllBytes(Paths.get("src/test/resources/json/morty.json"))));
+        Person morty = getCharacterByName("Morty Smith");
 
-        List<String> mortyEpisodes = getCharacterEpisodes(morty);
-
-        String lastEpisodeMorty = mortyEpisodes.get(mortyEpisodes.size()-1);
+        String lastEpisodeMorty = morty.getEpisode().stream().reduce((first, second) -> second).get();
 
         List<String> characters = getCharactersOfEpisode(getId(lastEpisodeMorty));
 
-        int lastCharId = getId(characters.get(characters.size()-1));
+        int idLastEpisodeCharacter = getId(characters.get(characters.size() - 1));
 
-        Person person = getCharacterById(lastCharId);
+        Person jerry = getCharacterById(idLastEpisodeCharacter);
 
-        String mortyLocation = (String) morty.getJSONObject("location").get("name");
-        String mortySpecies = (String) morty.get("species");
+        LOGGER.info("Раса {}: {}. Раса {}: {}.", morty.getName(), morty.getSpecies(), jerry.getName(), jerry.getSpecies());
 
-        LOGGER.info("Раса {}: {}. Раса {}: {}.",morty.get("name"), mortySpecies, person.getName(), person.getSpecies());
+        LOGGER.info("Местонахождение {}: {}. Местонахождение {}: {}.", morty.getName(), morty.getLocation(), jerry.getName(), jerry.getLocation());
 
-        LOGGER.info("Локация {}: {}. Локация {}: {}.",morty.get("name"), mortyLocation, person.getName(), person.getLocation());
+        assertEquals(morty.getSpecies(), jerry.getSpecies());
 
-        assertEquals(mortySpecies, person.getSpecies());
-
-        assertNotEquals(mortyLocation, person.getLocation());
+        assertNotEquals(morty.getLocation(), jerry.getLocation());
 
     }
 
