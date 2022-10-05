@@ -5,6 +5,8 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import utils.api.Specification;
+
 import java.io.IOException;
 import java.util.List;
 
@@ -19,13 +21,13 @@ public class MortyTest {
 
     @BeforeAll
     public static void prepare() throws IOException {
-
         System.getProperties().load(ClassLoader.getSystemResourceAsStream("test.properties"));
         String baseUri = System.getProperty("mortyUrl");
         if (baseUri == null || baseUri.isEmpty()) {
             throw new RuntimeException("В файле \"test.properties\" отсутствует значение \"mortyUrl\"");
         }
         baseURI = baseUri;
+
         Specification.installSpecification(Specification.requestSpec(baseURI));
 
     }
