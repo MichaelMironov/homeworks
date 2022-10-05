@@ -14,20 +14,16 @@ import static api.com.rickandmortyapi.Steps.*;
 import static io.restassured.RestAssured.baseURI;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static utils.Configuration.getConfigurationValue;
 
 public class MortyTest {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(MortyTest.class);
 
     @BeforeAll
-    public static void prepare() throws IOException {
-        System.getProperties().load(ClassLoader.getSystemResourceAsStream("test.properties"));
-        String baseUri = System.getProperty("mortyUrl");
-        if (baseUri == null || baseUri.isEmpty()) {
-            throw new RuntimeException("В файле \"test.properties\" отсутствует значение \"mortyUrl\"");
-        }
-        baseURI = baseUri;
+    public static void prepare() {
 
+        baseURI = getConfigurationValue("mortyUrl");
         Specification.installSpecification(Specification.requestSpec(baseURI));
 
     }
