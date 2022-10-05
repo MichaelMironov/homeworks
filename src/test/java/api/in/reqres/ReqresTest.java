@@ -1,6 +1,6 @@
 package api.in.reqres;
 
-import api.com.rickandmortyapi.Specification;
+import utils.api.Specification;
 import api.in.reqres.pojo.Potato;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
@@ -11,6 +11,7 @@ import java.io.IOException;
 import static io.restassured.RestAssured.baseURI;
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.core.IsEqual.equalTo;
+import static utils.Configuration.getConfigurationValue;
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class ReqresTest {
@@ -19,14 +20,9 @@ public class ReqresTest {
     private static Potato potato;
 
     @BeforeAll
-    public static void prepare() throws IOException {
+    public static void prepare() {
 
-        System.getProperties().load(ClassLoader.getSystemResourceAsStream("test.properties"));
-        String baseUri = System.getProperty("reqresUrl");
-        if (baseUri == null || baseUri.isEmpty()) {
-            throw new RuntimeException("В файле \"test.properties\" отсутствует значение \"reqresUrl\"");
-        }
-        baseURI = baseUri;
+        baseURI = getConfigurationValue("reqresUrl");;
         Specification.installSpecification(Specification.requestSpec(baseURI));
 
     }
