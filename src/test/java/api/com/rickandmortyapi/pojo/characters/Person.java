@@ -1,26 +1,28 @@
-package api.com.rickandmortyapi.pojo;
+package api.com.rickandmortyapi.pojo.characters;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonProperty;
 
-import javax.xml.stream.Location;
+import java.util.ArrayList;
 import java.util.Date;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Person {
-    public Integer id;
-    public String name;
-    public Object location;
-//    public ArrayList<String> episode;
-    public String url;
-    public Date created;
+    private Integer id;
+    private String name;
+    private String species;
+    private Location location;
+    private String url;
+    private Date created;
+    private ArrayList<String> episode;
 
-    public Person(Integer id, String name, String location, String url, Date created) {
+    public Person(Integer id, String name, String species, Location location, String url, Date created, ArrayList<String> episode) {
         this.id = id;
         this.name = name;
+        this.species = species;
         this.location = location;
         this.url = url;
         this.created = created;
+        this.episode = episode;
     }
 
     public Person() {
@@ -42,11 +44,19 @@ public class Person {
         this.name = name;
     }
 
-    public Object getLocation() {
-        return location;
+    public String getSpecies() {
+        return species;
     }
 
-    public void setLocation(Object location) {
+    public void setSpecies(String species) {
+        this.species = species;
+    }
+
+    public String getLocation() {
+        return location.name;
+    }
+
+    public void setLocation(Location location) {
         this.location = location;
     }
 
@@ -64,5 +74,13 @@ public class Person {
 
     public void setCreated(Date created) {
         this.created = created;
+    }
+
+    public ArrayList<String> getEpisode() {
+        return episode;
+    }
+
+    public void setEpisode(ArrayList<String> episode) {
+        this.episode = episode;
     }
 }
