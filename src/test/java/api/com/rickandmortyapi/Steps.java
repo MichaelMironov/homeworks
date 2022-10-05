@@ -1,8 +1,7 @@
-package api.com.rickandmortyapi.steps;
+package api.com.rickandmortyapi;
 
 import api.com.rickandmortyapi.pojo.characters.Person;
-import io.restassured.http.ContentType;
-import org.json.JSONObject;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 
 import java.util.Arrays;
 import java.util.List;
@@ -11,12 +10,21 @@ import static io.restassured.RestAssured.given;
 
 public class Steps {
 
-    public static List<String> getCharacterEpisodes(JSONObject character) {
+    public static Person getCharacterByName(String name){
+        return  given()
+                .basePath("/character")
+                .queryParam("name",name)
+                .when().get()
+                .then().statusCode(200)
+                .log().headers()
+                .extract().body().jsonPath().getObject("results[0]", Person.class);
+    }
+
+    public static List<String> getCharacterEpisodes(ObjectNode character) {
 
         return  given()
                 .basePath("/character")
                 .body(character)
-                .contentType(ContentType.JSON)
                 .when().get()
                 .then().statusCode(200)
                 .extract()
@@ -28,9 +36,9 @@ public class Steps {
 
         return  given()
                 .basePath("/episode/"+episodeId)
-                .contentType(ContentType.JSON)
                 .when().get()
-                .then().statusCode(200).log().headers()
+                .then().statusCode(200)
+                .log().body()
                 .extract()
                 .jsonPath().getList("characters");
     }
@@ -44,7 +52,6 @@ public class Steps {
 
         return  given()
                 .basePath("/character/"+id)
-                .contentType(ContentType.JSON)
                 .when().get()
                 .then().statusCode(200)
                 .extract()
