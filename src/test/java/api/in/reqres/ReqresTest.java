@@ -1,14 +1,15 @@
 package api.in.reqres;
 
-import utils.api.Specification;
 import api.in.reqres.pojo.Potato;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import org.junit.jupiter.api.*;
+
 import java.io.File;
 import java.io.IOException;
 
-import static io.restassured.RestAssured.baseURI;
+import static api.Specification.installSpecification;
+import static api.Specification.requestSpec;
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.core.IsEqual.equalTo;
 import static utils.Configuration.getConfigurationValue;
@@ -22,8 +23,7 @@ public class ReqresTest {
     @BeforeAll
     public static void prepare() {
 
-        baseURI = getConfigurationValue("reqresUrl");;
-        Specification.installSpecification(Specification.requestSpec(baseURI));
+        installSpecification(requestSpec(getConfigurationValue("reqresUrl")));
 
     }
 
