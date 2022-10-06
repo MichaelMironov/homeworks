@@ -83,4 +83,14 @@ public class Person {
     public void setEpisode(ArrayList<String> episode) {
         this.episode = episode;
     }
+
+    @Override
+    public String toString() {
+        return "Информация о персонаже: \n" +
+                "id: "+ id +"\n" +
+                "Имя: "+ name +"\n" +
+                "Раса: "+ species +"\n"+
+                "Местонахождение "+ location.name +"\n"+
+                "Появление в эпизодах: "+ episode;
+    }
 }

@@ -1,10 +1,10 @@
 package api.ru.jira;
 
 import io.restassured.response.Response;
-import utils.api.Specification;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
+import static api.Specification.*;
 import static api.ru.jira.Steps.getSessionId;
 import static io.restassured.RestAssured.*;
 import static java.util.Optional.empty;
@@ -21,11 +21,11 @@ public class JiraTest {
 
         baseURI = getConfigurationValue("jiraUrl");
 
-        Specification.installSpecification(Specification.requestSpec(baseURI));
+        installSpecification(requestSpec(baseURI));
 
         sessionID = getSessionId(getConfigurationValue("user"), getConfigurationValue("password"), "JSESSIONID");
 
-        Specification.installSpecification(Specification.requestSpecWithSession(baseURI, sessionID));
+        installSpecification(requestSpecWithSession(baseURI, sessionID));
 
     }
 
