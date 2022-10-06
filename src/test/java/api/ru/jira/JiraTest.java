@@ -13,8 +13,7 @@ import static utils.Configuration.getConfigurationValue;
 
 public class JiraTest {
 
-    public static String sessionID;
-    public static final String BOARDS = getConfigurationValue("jiraBoardsEndpoint");
+    private static final String BOARDS = getConfigurationValue("jiraBoardsEndpoint");
 
     @BeforeAll
     static void prepare() {
@@ -23,7 +22,7 @@ public class JiraTest {
 
         installSpecification(requestSpec(baseURI));
 
-        sessionID = getSessionId(getConfigurationValue("user"), getConfigurationValue("password"), "JSESSIONID");
+        String sessionID = getSessionId(getConfigurationValue("user"), getConfigurationValue("password"), "JSESSIONID");
 
         installSpecification(requestSpecWithSession(baseURI, sessionID));
 
