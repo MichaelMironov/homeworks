@@ -1,4 +1,4 @@
-package ru.ifellow.api.model;
+package api.model;
 
 import com.google.gson.GsonBuilder;
 
