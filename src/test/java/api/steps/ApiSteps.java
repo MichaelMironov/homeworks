@@ -1,4 +1,4 @@
-package ru.ifellow.api.steps;
+package api.steps;
 
 import api.context.ContextHolder;
 import api.model.RequestModel;

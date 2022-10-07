@@ -1,4 +1,4 @@
-package ru.ifellow.api.steps.datatables;
+package api.steps.datatables;
 
 import api.model.RequestModel;
 import io.cucumber.java.DataTableType;
