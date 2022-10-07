@@ -1,8 +1,8 @@
 #language: ru
-
+@api
 Функционал: Проверка api cucumber
 
-  Сценарий: Получение списка задач
+  Сценарий: Авторизация в системе
     * сгенерировать переменные
       | username | mironov   |
       | password | Qwerty123 |
@@ -13,5 +13,3 @@
       | Content-type | application/json |
     И отправить запрос
     Тогда статус код 200
-    И извлечь данные
-      | Set-Cookie | $.session |
