@@ -6,6 +6,7 @@ import api.ApiRequest;
 import io.cucumber.datatable.DataTable;
 import io.cucumber.java.ru.И;
 import io.qameta.allure.Allure;
+import io.qameta.allure.Step;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import utils.CompareUtil;
@@ -53,7 +54,7 @@ public class ApiSteps {
         int actualStatusCode = apiRequest.getResponse().statusCode();
         assertEquals(code, actualStatusCode);
     }
-
+    @Step("Извлечь данные")
     @И("извлечь данные")
     public void extractVariables(Map<String, String> vars) {
         String responseBody = apiRequest.getResponse().body().prettyPeek().asString();
@@ -61,17 +62,7 @@ public class ApiSteps {
             jsonPath = ContextHolder.replaceVarsIfPresent(jsonPath);
             String extractedValue = VariableUtil.extractBrackets(JsonUtil.getFieldFromJson(responseBody, jsonPath));
             ContextHolder.put(k, extractedValue);
-            LOGGER.info("Извлечены данные: {}={}", k, extractedValue);
-        });
-    }
-
-    @И("извлечь последний элемент")
-    public void extractLastElem(Map<String, String> vars) {
-        String responseBody = apiRequest.getResponse().body().prettyPeek().asString();
-        vars.forEach((k, jsonPath) -> {
-            jsonPath = ContextHolder.replaceVarsIfPresent(jsonPath);
-            String extractedValue = String.valueOf(Integer.parseInt(VariableUtil.extractBrackets(JsonUtil.getFieldFromJson(responseBody, jsonPath)))-1);
-            ContextHolder.put(k, extractedValue);
+            Allure.addAttachment(k, "application/json", extractedValue, ".txt");
             LOGGER.info("Извлечены данные: {}={}", k, extractedValue);
         });
     }
@@ -101,6 +92,7 @@ public class ApiSteps {
             String actual = ContextHolder.replaceVarsIfPresent(it.get(2));
             boolean compareResult = CompareUtil.compare(expect, actual, it.get(1));
             assertTrue(compareResult, String.format("Ожидаемое: '%s'\nФактическое: '%s'\nОператор сравнения: '%s'\n", expect, actual, it.get(1)));
+            Allure.addAttachment(expect, "application/json", expect + it.get(1) + actual, ".txt");
             LOGGER.info("Сравнение значений: {} {} {}", expect, it.get(1), actual);
         });
     }

@@ -43,7 +43,7 @@
       | jerry_species  | $.species  |
       | jerry_location | $.location |
 
-  Сценарий:  Сравнение персонажей
+  Сценарий: Сравнение персонажей
     Тогда сравнить значения
       | ${morty_species}  | == | ${jerry_species}  |
       | ${morty_location} | != | ${jerry_location} |

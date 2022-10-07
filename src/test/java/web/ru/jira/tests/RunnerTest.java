@@ -7,10 +7,10 @@ import org.junit.runner.RunWith;
 
 @RunWith(Cucumber.class)
 @CucumberOptions(
-        glue = {"ru.ifellow.web.ru.jira.steps", "ru.ifellow.web.ru.jira.hooks"},
+        plugin = {"pretty","io.qameta.allure.cucumber6jvm.AllureCucumber6Jvm"},
+        glue = {"web.ru.jira.steps", "web.ru.jira.hooks"},
         features = "classpath:features",
-        plugin = {"pretty"},
-        tags = "@jira")
+        tags = "@ui")
 public class RunnerTest {
 
 }
