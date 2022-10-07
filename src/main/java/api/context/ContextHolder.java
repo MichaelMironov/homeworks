@@ -1,13 +1,9 @@
-package ru.ifellow.api.context;
+package api.context;
 
-import ru.ifellow.utils.VariableUtil;
+import utils.VariableUtil;
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- * Класс для хранения переменных теста
- * Синтаксис %{var_name}%
- */
 public class ContextHolder {
 
     private static final ThreadLocal<Map<String, Object>> THREAD = new ThreadLocal<>();
