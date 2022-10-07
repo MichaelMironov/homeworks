@@ -5,23 +5,23 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>ru.iFellow</groupId>
-    <artifactId>YandexTest</artifactId>
+    <artifactId>ru.iFellow</artifactId>
     <version>1.0-SNAPSHOT</version>
 
     <properties>
         <!-- Java 8 -->
-        <java.version>1.8</java.version>
+        <java.source>8</java.source>
+        <java.target>8</java.target>
         <compiler.target.version>${java.version}</compiler.target.version>
         <compiler.source.version>${java.version}</compiler.source.version>
 
-        <compiler.version>1.8</compiler.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <selenide.version>5.18.0</selenide.version>
         <junit.platform.version>1.7.2</junit.platform.version>
         <junit.jupiter.version>5.7.0</junit.jupiter.version>
         <junit.vintage.version>5.7.0</junit.vintage.version>
-        <restAssured.version>4.2.0</restAssured.version>
+        <restAssured.version>4.3.1</restAssured.version>
         <cucumber.version>6.9.1</cucumber.version>
         <log4j.version>1.2.17</log4j.version>
         <log4jCore.version>2.13.2</log4jCore.version>
@@ -32,9 +32,10 @@
         <allureJunit5.version>2.14.0</allureJunit5.version>
         <cucumber.6.jvm.version>2.13.6</cucumber.6.jvm.version>
         <allure.version>2.13.2</allure.version>
-        <allure-maven.version>2.10.0</allure-maven.version>
+        <allure.maven.version>2.10.0</allure.maven.version>
+        <surefire.version>2.22.2</surefire.version>
+        <maven-compiler-plugin.version>3.8.1</maven-compiler-plugin.version>
         <json.version>20210307</json.version>
-
         <parallelCount>1</parallelCount>
     </properties>
 
@@ -155,30 +156,27 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.8.1</version>
+                <version>${maven-compiler-plugin.version}</version>
                 <configuration>
-                    <encoding>UTF-8</encoding>
-                    <source>1.8</source>
-                    <target>1.8</target>
+                    <source>${java.source}</source>
+                    <target>${java.target}</target>
+                    <encoding>${project.build.sourceEncoding}</encoding>
                 </configuration>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
-                <version>2.20</version>
+                <version>${surefire.version}</version>
                 <configuration>
-                    <parallel>methods</parallel>
-                    <threadCount>${parallelCount}</threadCount>
-                    <perCoreThreadCount>true</perCoreThreadCount>
-                    <perCoreThreadCount>${parallelCount}</perCoreThreadCount>
+                    <testFailureIgnore>false</testFailureIgnore>
+                    <skipTests>false</skipTests>
                     <argLine>
-                        -javaagent:"${settings.localRepository}/org/aspectj/aspectjweaver/${aspectj.version}/aspectjweaver-${aspectj.version}.jar"
-                        <!--                        нужно указать кодировку иначе в терминале не будет кирилицы у фич кукумбера-->
+                        -Dcucumber.filter.tags="api"
                         -Dfile.encoding=UTF-8
+                        -javaagent:"${settings.localRepository}/org/aspectj/aspectjweaver/${aspectj.version}/aspectjweaver-${aspectj.version}.jar"
                     </argLine>
-                    <failIfNoTests>true</failIfNoTests>
-                    <testFailureIgnore>true</testFailureIgnore>
                     <systemPropertyVariables>
+                        <project.dir>${project.basedir}/</project.dir>
                         <allure.results.directory>${project.build.directory}/allure-results</allure.results.directory>
                     </systemPropertyVariables>
                 </configuration>
@@ -193,7 +191,10 @@
             <plugin>
                 <groupId>io.qameta.allure</groupId>
                 <artifactId>allure-maven</artifactId>
-                <version>2.10.0</version>
+                <version>${allure.maven.version}</version>
+                <configuration>
+                    <reportDirectory>${project.build.directory}/allure-report</reportDirectory>
+                </configuration>
             </plugin>
         </plugins>
     </build>
