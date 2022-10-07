@@ -1,6 +1,6 @@
-package ru.ifellow.api.in.reqres;
+package api.in.reqres;
 
-import ru.ifellow.api.in.reqres.pojo.Potato;
+import api.in.reqres.pojo.Potato;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import org.junit.jupiter.api.*;

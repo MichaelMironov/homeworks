@@ -1,4 +1,4 @@
-package ru.ifellow.api;
+package api;
 
 import io.cucumber.junit.Cucumber;
 import io.cucumber.junit.CucumberOptions;

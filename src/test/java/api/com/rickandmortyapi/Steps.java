@@ -1,6 +1,6 @@
-package ru.ifellow.api.com.rickandmortyapi;
+package api.com.rickandmortyapi;
 
-import ru.ifellow.api.com.rickandmortyapi.pojo.characters.Person;
+import api.com.rickandmortyapi.pojo.characters.Person;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 
 import java.util.Arrays;

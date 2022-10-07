@@ -1,4 +1,4 @@
-package ru.ifellow.api.ru.jira;
+package api.ru.jira;
 
 import io.restassured.response.Response;
 import org.junit.jupiter.api.BeforeAll;
@@ -38,6 +38,6 @@ public class JiraTest {
                                 .extract().body();
 
 
-        tasksList.getBody().prettyPrint();
+//        tasksList.getBody().prettyPrint();
     }
 }

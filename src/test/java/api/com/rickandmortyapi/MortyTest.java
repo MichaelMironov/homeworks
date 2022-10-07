@@ -1,6 +1,6 @@
-package ru.ifellow.api.com.rickandmortyapi;
+package api.com.rickandmortyapi;
 
-import ru.ifellow.api.com.rickandmortyapi.pojo.characters.Person;
+import api.com.rickandmortyapi.pojo.characters.Person;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
@@ -12,7 +12,6 @@ import static api.Specification.installSpecification;
 import static api.Specification.requestSpec;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
-import static ru.ifellow.api.com.rickandmortyapi.Steps.*;
 import static utils.configurations.Configuration.getConfigurationValue;
 
 public class MortyTest {
@@ -29,7 +28,7 @@ public class MortyTest {
     @Test
     void characterComparingTest() {
 
-        Person morty = getCharacterByName("Morty Smith");
+        Person morty = Steps.getCharacterByName("Morty Smith");
 
         LOGGER.info(morty.toString());
 
@@ -37,13 +36,13 @@ public class MortyTest {
 
         LOGGER.info("Последний эпизод Морти: {}", lastEpisodeMorty);
 
-        List<String> characters = Steps.getCharactersOfEpisode(getId(lastEpisodeMorty));
+        List<String> characters = Steps.getCharactersOfEpisode(Steps.getId(lastEpisodeMorty));
 
         LOGGER.info("Персонажи последнего эпизода Морти: {}", characters);
 
-        int idLastEpisodeCharacter = getId(characters.get(characters.size() - 1));
+        int idLastEpisodeCharacter = Steps.getId(characters.get(characters.size() - 1));
 
-        Person jerry = getCharacterById(idLastEpisodeCharacter);
+        Person jerry = Steps.getCharacterById(idLastEpisodeCharacter);
 
         LOGGER.info("Последний персонаж. {}", jerry.toString());
 
