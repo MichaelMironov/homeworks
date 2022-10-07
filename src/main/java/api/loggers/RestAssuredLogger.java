@@ -10,7 +10,7 @@ import java.nio.charset.Charset;
 
 import static api.context.ContextHolder.replaceVarsIfPresent;
 
-public class RestAssuredCustomLogger implements Filter {
+public class RestAssuredLogger implements Filter {
 
     @Override
     public Response filter(FilterableRequestSpecification requestSpec
