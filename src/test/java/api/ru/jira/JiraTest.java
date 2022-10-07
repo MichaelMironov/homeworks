@@ -1,15 +1,14 @@
-package api.ru.jira;
+package ru.ifellow.api.ru.jira;
 
 import io.restassured.response.Response;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import static api.Specification.*;
-import static api.ru.jira.Steps.getSessionId;
 import static io.restassured.RestAssured.*;
 import static java.util.Optional.empty;
 import static org.hamcrest.core.IsNot.not;
-import static utils.Configuration.getConfigurationValue;
+import static utils.configurations.Configuration.getConfigurationValue;
 
 public class JiraTest {
 
@@ -22,7 +21,7 @@ public class JiraTest {
 
         installSpecification(requestSpec(baseURI));
 
-        String sessionID = getSessionId(getConfigurationValue("user"), getConfigurationValue("password"), "JSESSIONID");
+        String sessionID = Steps.getSessionId(getConfigurationValue("user"), getConfigurationValue("password"), "JSESSIONID");
 
         installSpecification(requestSpecWithSession(baseURI, sessionID));
 

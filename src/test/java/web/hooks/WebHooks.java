@@ -7,7 +7,7 @@ import org.junit.jupiter.api.BeforeAll;
 
 import java.util.Objects;
 
-import static utils.Configuration.getConfigurationValue;
+import static utils.configurations.Configuration.getConfigurationValue;
 
 public class WebHooks {
     @BeforeAll

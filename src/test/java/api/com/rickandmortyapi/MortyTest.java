@@ -1,18 +1,19 @@
-package api.com.rickandmortyapi;
+package ru.ifellow.api.com.rickandmortyapi;
 
-import api.com.rickandmortyapi.pojo.characters.Person;
+import ru.ifellow.api.com.rickandmortyapi.pojo.characters.Person;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
 import java.util.List;
 
 import static api.Specification.installSpecification;
 import static api.Specification.requestSpec;
-import static api.com.rickandmortyapi.Steps.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
-import static utils.Configuration.getConfigurationValue;
+import static ru.ifellow.api.com.rickandmortyapi.Steps.*;
+import static utils.configurations.Configuration.getConfigurationValue;
 
 public class MortyTest {
 
@@ -36,7 +37,7 @@ public class MortyTest {
 
         LOGGER.info("Последний эпизод Морти: {}", lastEpisodeMorty);
 
-        List<String> characters = getCharactersOfEpisode(getId(lastEpisodeMorty));
+        List<String> characters = Steps.getCharactersOfEpisode(getId(lastEpisodeMorty));
 
         LOGGER.info("Персонажи последнего эпизода Морти: {}", characters);
 

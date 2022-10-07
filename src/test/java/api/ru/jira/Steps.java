@@ -1,4 +1,4 @@
-package api.ru.jira;
+package ru.ifellow.api.ru.jira;
 
 import static io.restassured.RestAssured.given;
 

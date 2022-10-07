@@ -1,4 +1,4 @@
-package api.in.reqres.pojo;
+package ru.ifellow.api.in.reqres.pojo;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;

@@ -9,7 +9,7 @@ import org.apache.log4j.Logger;
 import static com.codeborne.selenide.Selenide.$x;
 import static com.codeborne.selenide.Selenide.open;
 import static org.junit.jupiter.api.Assertions.assertFalse;
-import static utils.Configuration.getConfigurationValue;
+import static utils.configurations.Configuration.getConfigurationValue;
 
 public class AuthorizationPage {
 

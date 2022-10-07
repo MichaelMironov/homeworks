@@ -1,4 +1,4 @@
-package api.com.rickandmortyapi.pojo.characters;
+package ru.ifellow.api.com.rickandmortyapi.pojo.characters;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 

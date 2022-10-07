@@ -1,5 +1,4 @@
-package web.ru.jira.tests;
-
+package ru.ifellow.api;
 
 import io.cucumber.junit.Cucumber;
 import io.cucumber.junit.CucumberOptions;
@@ -7,11 +6,11 @@ import org.junit.runner.RunWith;
 
 @RunWith(Cucumber.class)
 @CucumberOptions(
-        glue = {"ru.ifellow.web.ru.jira.steps", "ru.ifellow.web.ru.jira.hooks"},
+        plugin = {"pretty", "io.qameta.allure.cucumber6jvm.AllureCucumber6Jvm"},
         features = "classpath:features",
-        plugin = {"pretty"},
-        tags = "@jira")
-public class RunnerTest {
+        glue = "ru.ifellow.api.steps",
+        tags = "@api"
+)
+public class TestRunnerApi {
 
 }
-

@@ -1,6 +1,6 @@
-package api.in.reqres;
+package ru.ifellow.api.in.reqres;
 
-import api.in.reqres.pojo.Potato;
+import ru.ifellow.api.in.reqres.pojo.Potato;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import org.junit.jupiter.api.*;
@@ -12,7 +12,7 @@ import static api.Specification.installSpecification;
 import static api.Specification.requestSpec;
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.core.IsEqual.equalTo;
-import static utils.Configuration.getConfigurationValue;
+import static utils.configurations.Configuration.getConfigurationValue;
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class ReqresTest {

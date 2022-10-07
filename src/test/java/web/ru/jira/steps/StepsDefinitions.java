@@ -5,14 +5,14 @@ import com.codeborne.selenide.SelenideElement;
 import io.cucumber.java.ru.*;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
+import web.ru.jira.elements.NavigationPanel;
 import web.ru.jira.models.Task;
+import web.ru.jira.pages.BoardsPage;
 
 import static com.codeborne.selenide.Selenide.*;
-import static web.ru.jira.elements.NavigationPanel.*;
 import static web.ru.jira.pages.TaskPage.createNewTask;
 import static web.ru.jira.pages.AuthorizationPage.logInAs;
 import static web.ru.jira.pages.AuthorizationPage.openAuthorizationPage;
-import static web.ru.jira.pages.BoardsPage.*;
 import static web.ru.jira.pages.TasksPage.*;
 
 public class StepsDefinitions {
@@ -31,10 +31,10 @@ public class StepsDefinitions {
 
         switch (menu) {
             case "Задачи":
-                elem = TASKS;
+                elem = NavigationPanel.TASKS;
         }
 
-        selectMenuSubsectionByText(elem, submenu);
+        NavigationPanel.selectMenuSubsectionByText(elem, submenu);
     }
 
     @И("^проверить общее количество заведенных задач в проекте$")
@@ -56,7 +56,7 @@ public class StepsDefinitions {
 
     @Затем("^создать новую задачу с типом ([^\"]*), именем ([^\"]*) и описанием ([^\"]*)$")
     public static void createTask(String type, String title, String description) {
-        clickToCreateTask();
+        NavigationPanel.clickToCreateTask();
         newTask = createNewTask(title, type, description);
     }
 
@@ -67,26 +67,26 @@ public class StepsDefinitions {
 
         switch (column) {
             case "Выполнено":
-                column = DONE;
+                column = BoardsPage.DONE;
                 break;
             case "В работе":
-                column = IN_WORK;
+                column = BoardsPage.IN_WORK;
                 break;
         }
 
-        selectMenuSubsectionByText(TASKS, "Поиск задач");
+        NavigationPanel.selectMenuSubsectionByText(NavigationPanel.TASKS, "Поиск задач");
 
         filterTasksByText(newTask.getTitle());
 
         openTaskWithId(newTask.getId());
 
-        selectMenuSubsectionByText(BOARDS, "Доска TEST");
+        NavigationPanel.selectMenuSubsectionByText(NavigationPanel.BOARDS, "Доска TEST");
 
-        addTaskToSprint(newTask.getId(), newTask.getTitle());
+        BoardsPage.addTaskToSprint(newTask.getId(), newTask.getTitle());
 
-        toSprintBoard();
+        BoardsPage.toSprintBoard();
 
-        moveTaskByIdTo(newTask.getId(), column);
+        BoardsPage.moveTaskByIdTo(newTask.getId(), column);
 
         LOGGER.info("Перенос задачи в колонку - " + temp);
 
@@ -96,7 +96,7 @@ public class StepsDefinitions {
 
     @Тогда("^статус новой задачи - ([^\"]*)$")
     public void statusTask(String status) {
-        $x("//a[contains(@title, 'TEST-"+taskId+"')]")
+        $x("//a[contains(@title, 'TEST-"+ BoardsPage.taskId+"')]")
                 .shouldBe(Condition.visible)
                 .doubleClick().scrollIntoView(true);
 

@@ -1,4 +1,4 @@
-package api;
+package ru.ifellow.api;
 
 import io.restassured.RestAssured;
 import io.restassured.builder.RequestSpecBuilder;
