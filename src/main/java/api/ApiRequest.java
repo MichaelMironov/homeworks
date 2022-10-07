@@ -1,15 +1,16 @@
-package ru.ifellow.api;
+package api;
 
-import ru.ifellow.api.model.RequestModel;
+import api.context.ContextHolder;
+import api.loggers.RestAssuredLogger;
+import api.model.RequestModel;
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.http.Method;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 import org.aeonbits.owner.ConfigFactory;
-import ru.ifellow.api.context.ContextHolder;
-import ru.ifellow.utils.FileUtil;
-import ru.ifellow.utils.RegexUtil;
-import ru.ifellow.utils.configurations.RestConfiguration;
+import utils.FileUtil;
+import utils.RegexUtil;
+import utils.configurations.RestConfiguration;
 
 import java.net.URI;
 import java.util.Map;
@@ -51,6 +52,7 @@ public class ApiRequest {
 
         this.builder.setBaseUri(uri);
         setBodyFromFile();
+        addLoggingListener();
     }
 
     public Response getResponse() {
@@ -75,6 +77,8 @@ public class ApiRequest {
         this.response = given()
                 .spec(requestSpecification)
                 .request(method);
+
+        getResponseBody(response, body);
     }
 
     private void setBodyFromFile() {
@@ -84,4 +88,12 @@ public class ApiRequest {
         }
     }
 
+    private void getResponseBody(Response response, String requestBody) {
+        if (requestBody != null) {
+            response.prettyPrint();
+        }
+    }
+    private void addLoggingListener() {
+        builder.addFilter(new RestAssuredLogger());
+    }
 }
