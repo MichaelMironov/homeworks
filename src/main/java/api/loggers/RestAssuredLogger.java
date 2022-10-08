@@ -6,12 +6,14 @@ import io.restassured.filter.log.UrlDecoder;
 import io.restassured.response.Response;
 import io.restassured.specification.FilterableRequestSpecification;
 import io.restassured.specification.FilterableResponseSpecification;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import java.nio.charset.Charset;
 
 import static api.context.ContextHolder.replaceVarsIfPresent;
 
 public class RestAssuredLogger implements Filter {
-
+    private static final Logger LOGGER = LoggerFactory.getLogger(RestAssuredLogger.class);
     @Override
     public Response filter(FilterableRequestSpecification requestSpec
             , FilterableResponseSpecification responseSpec
@@ -27,7 +29,7 @@ public class RestAssuredLogger implements Filter {
 
         StringBuilder stringBuilder = new StringBuilder();
 
-        stringBuilder.append("------------- REQUEST -------------\n");
+        stringBuilder.append("\n------------- REQUEST -------------\n");
         stringBuilder.append("URL: ")
                 .append(uri).append("\n")
                 .append("Method: ").append(requestSpec.getMethod()).append("\n");
@@ -46,13 +48,13 @@ public class RestAssuredLogger implements Filter {
         stringBuilder.append("Request Body: \n")
                 .append(replaceVarsIfPresent(requestSpec.getBody()))
                 .append("\n");
-        stringBuilder.append("------------- RESPONSE -------------\n");
+        stringBuilder.append("\n------------- RESPONSE -------------\n");
         stringBuilder.append("Status code: ")
                 .append(response.statusCode())
                 .append("\n");
         stringBuilder.append("Response Body: \n")
                 .append(response.getBody().prettyPeek());
-        System.out.println(stringBuilder);
+        LOGGER.info(stringBuilder.toString());
         return response;
     }
 }
