@@ -6,7 +6,6 @@ import api.ApiRequest;
 import io.cucumber.datatable.DataTable;
 import io.cucumber.java.ru.И;
 import io.qameta.allure.Allure;
-import io.qameta.allure.Step;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import utils.CompareUtil;
@@ -54,7 +53,6 @@ public class ApiSteps {
         int actualStatusCode = apiRequest.getResponse().statusCode();
         assertEquals(code, actualStatusCode);
     }
-    @Step("Извлечь данные")
     @И("извлечь данные")
     public void extractVariables(Map<String, String> vars) {
         String responseBody = apiRequest.getResponse().body().prettyPeek().asString();
