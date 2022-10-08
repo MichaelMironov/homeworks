@@ -3,6 +3,8 @@ package api;
 import api.context.ContextHolder;
 import api.loggers.RestAssuredLogger;
 import api.model.RequestModel;
+import com.github.viclovsky.swagger.coverage.SwaggerCoverageRestAssured;
+import io.qameta.allure.restassured.AllureRestAssured;
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.http.Method;
 import io.restassured.response.Response;
@@ -51,6 +53,8 @@ public class ApiRequest {
         }
 
         this.builder.setBaseUri(uri);
+        this.builder.addFilter(new AllureRestAssured());
+        this.builder.addFilter(new SwaggerCoverageRestAssured());
         setBodyFromFile();
         addLoggingListener();
     }
