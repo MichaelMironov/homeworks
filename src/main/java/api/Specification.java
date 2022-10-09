@@ -1,5 +1,6 @@
 package api;
 
+import com.github.viclovsky.swagger.coverage.SwaggerCoverageRestAssured;
 import io.restassured.RestAssured;
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.filter.log.LogDetail;
@@ -13,9 +14,10 @@ public class Specification {
                 .setBaseUri(url)
                 .setAccept(ContentType.JSON)
                 .setContentType(ContentType.JSON)
+                .addFilter(new SwaggerCoverageRestAssured())
                 .log(LogDetail.ALL)
                 .build();
-    }
+    }git
 
     public static RequestSpecification requestSpecWithSession(String url, String sessionId){
 
