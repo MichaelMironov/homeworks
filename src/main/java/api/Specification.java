@@ -17,7 +17,7 @@ public class Specification {
                 .addFilter(new SwaggerCoverageRestAssured())
                 .log(LogDetail.ALL)
                 .build();
-    }git
+    }
 
     public static RequestSpecification requestSpecWithSession(String url, String sessionId){
 
