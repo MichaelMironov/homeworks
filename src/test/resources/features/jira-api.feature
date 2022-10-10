@@ -1,7 +1,8 @@
 #language: ru
-@api
-Функционал: Проверка api cucumber
 
+@api @jira
+@severity=critical
+Функционал: Проверка api jira
   Сценарий: Авторизация в системе
     * сгенерировать переменные
       | username | mironov   |

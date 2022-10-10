@@ -7,9 +7,11 @@ import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import web.ru.jira.elements.NavigationPanel;
 import web.ru.jira.models.Task;
-import web.ru.jira.pages.BoardsPage;
 
 import static com.codeborne.selenide.Selenide.*;
+import static web.ru.jira.elements.NavigationPanel.clickToCreateTask;
+import static web.ru.jira.elements.NavigationPanel.selectMenuSubsectionByText;
+import static web.ru.jira.pages.BoardsPage.*;
 import static web.ru.jira.pages.TaskPage.createNewTask;
 import static web.ru.jira.pages.AuthorizationPage.logInAs;
 import static web.ru.jira.pages.AuthorizationPage.openAuthorizationPage;
@@ -34,7 +36,7 @@ public class StepsDefinitions {
                 elem = NavigationPanel.TASKS;
         }
 
-        NavigationPanel.selectMenuSubsectionByText(elem, submenu);
+        selectMenuSubsectionByText(elem, submenu);
     }
 
     @И("^проверить общее количество заведенных задач в проекте$")
@@ -56,7 +58,7 @@ public class StepsDefinitions {
 
     @Затем("^создать новую задачу с типом ([^\"]*), именем ([^\"]*) и описанием ([^\"]*)$")
     public static void createTask(String type, String title, String description) {
-        NavigationPanel.clickToCreateTask();
+        clickToCreateTask();
         newTask = createNewTask(title, type, description);
     }
 
@@ -67,40 +69,38 @@ public class StepsDefinitions {
 
         switch (column) {
             case "Выполнено":
-                column = BoardsPage.DONE;
+                column = DONE;
+
+                System.out.println(DONE);
                 break;
             case "В работе":
-                column = BoardsPage.IN_WORK;
+                column = IN_WORK;
                 break;
         }
 
-        NavigationPanel.selectMenuSubsectionByText(NavigationPanel.TASKS, "Поиск задач");
+        selectMenuSubsectionByText(NavigationPanel.TASKS, "Поиск задач");
 
         filterTasksByText(newTask.getTitle());
 
         openTaskWithId(newTask.getId());
 
-        NavigationPanel.selectMenuSubsectionByText(NavigationPanel.BOARDS, "Доска TEST");
+        selectMenuSubsectionByText(NavigationPanel.BOARDS, "Доска TEST");
 
-        BoardsPage.addTaskToSprint(newTask.getId(), newTask.getTitle());
+        addTaskToSprint(newTask.getId(), newTask.getTitle());
 
-        BoardsPage.toSprintBoard();
+        toSprintBoard();
 
-        BoardsPage.moveTaskByIdTo(newTask.getId(), column);
+        moveTaskByIdTo(newTask.getId(), column);
 
         LOGGER.info("Перенос задачи в колонку - " + temp);
 
     }
 
-    static Task newTask;
+    private static Task newTask;
 
     @Тогда("^статус новой задачи - ([^\"]*)$")
     public void statusTask(String status) {
-        $x("//a[contains(@title, 'TEST-"+ BoardsPage.taskId+"')]")
-                .shouldBe(Condition.visible)
-                .doubleClick().scrollIntoView(true);
-
-        statusShouldBe(status);
+        statusTaskByIdShouldBe(status, newTask.getId());
     }
 
     @Дано("^открыта страницу по адресу: ([^\"]*)$")

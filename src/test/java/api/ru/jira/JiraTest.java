@@ -2,6 +2,8 @@ package api.ru.jira;
 
 import io.restassured.response.Response;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Tag;
+import org.junit.jupiter.api.Tags;
 import org.junit.jupiter.api.Test;
 
 import static api.Specification.*;
@@ -10,6 +12,7 @@ import static java.util.Optional.empty;
 import static org.hamcrest.core.IsNot.not;
 import static utils.configurations.Configuration.getConfigurationValue;
 
+@Tags({@Tag("@api"),@Tag("@native")})
 public class JiraTest {
 
     private static final String BOARDS = getConfigurationValue("jiraBoardsEndpoint");

@@ -1,5 +1,6 @@
 package api;
 
+import api.loggers.RestAssuredLogger;
 import com.github.viclovsky.swagger.coverage.SwaggerCoverageRestAssured;
 import io.restassured.RestAssured;
 import io.restassured.builder.RequestSpecBuilder;
@@ -15,7 +16,7 @@ public class Specification {
                 .setAccept(ContentType.JSON)
                 .setContentType(ContentType.JSON)
                 .addFilter(new SwaggerCoverageRestAssured())
-                .log(LogDetail.ALL)
+                .addFilter(new RestAssuredLogger())
                 .build();
     }
 
@@ -26,7 +27,7 @@ public class Specification {
                 .setSessionId(sessionId)
                 .setAccept(ContentType.JSON)
                 .setContentType(ContentType.JSON)
-                .log(LogDetail.ALL)
+                .addFilter(new RestAssuredLogger())
                 .build();
     }
 

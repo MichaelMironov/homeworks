@@ -1,7 +1,9 @@
 #language: ru
-@api
+
+@api @petstore
 Функционал: Проверка api petstore
 
+  @severity=critical
   Сценарий: Авторизация в системе
     * создать контекстные переменные
       | username | mironov   |

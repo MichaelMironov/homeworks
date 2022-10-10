@@ -15,8 +15,7 @@ import static org.hamcrest.CoreMatchers.*;
 import static org.hamcrest.Matchers.empty;
 import static utils.configurations.Configuration.getConfigurationValue;
 
-@Tag("@api")
-@Tag("@native")
+@Tags({@Tag("@api"),@Tag("@native")})
 public class PetStoreApiTest {
 
     @BeforeAll

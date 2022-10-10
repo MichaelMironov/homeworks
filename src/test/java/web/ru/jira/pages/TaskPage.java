@@ -2,12 +2,14 @@ package web.ru.jira.pages;
 
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
+import io.qameta.allure.Step;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.openqa.selenium.Keys;
 import web.ru.jira.models.Task;
 
 import static com.codeborne.selenide.Selenide.*;
+import static io.qameta.allure.Allure.step;
 
 public class TaskPage {
 
@@ -29,33 +31,33 @@ public class TaskPage {
 
     public static void selectType(String type) {
 
-        issueTypeField.click();
-        issueTypeField.sendKeys(Keys.BACK_SPACE);
-        issueTypeField.setValue(type);
-        issueTypeField.pressEnter().shouldBe(Condition.focused);
+        step("Выбрать тип: " + type, ()->{
+            issueTypeField.click();
+            issueTypeField.sendKeys(Keys.BACK_SPACE);
+            issueTypeField.setValue(type);
+            issueTypeField.pressEnter().shouldBe(Condition.focused);
+        });
 
     }
 
     public static void setTitle(String title) {
-        taskTitle.setValue(title);
+        step("Ввести название: " + title,()->taskTitle.setValue(title));
     }
 
     public static void setDescription(String description) {
-        switchTo().frame(0);
-        descriptionField.setValue(description);
-        switchTo().defaultContent();
+        step("Ввести описание: " + description , ()->{
+            switchTo().frame(0);
+            descriptionField.setValue(description);
+            switchTo().defaultContent();});
     }
 
     public static void submitTask() {
-
-        submitButton.click();
-
-        String[] nameOfCreatedTask = messageSuccessCreation.shouldBe(Condition.visible).innerText().split("-");
-
-        taskId = Integer.parseInt(nameOfCreatedTask[1].trim());
+        step("Создать задачу", ()->{
+            submitButton.click();
+            String[] nameOfCreatedTask = messageSuccessCreation.shouldBe(Condition.visible).innerText().split("-");
+            taskId = Integer.parseInt(nameOfCreatedTask[1].trim());});
 
         LOGGER.info("Id созданной задачи: " + taskId);
-
     }
 
     public static Task createNewTask(String title, String type, String description) {
@@ -64,7 +66,6 @@ public class TaskPage {
         selectType(type);
         setDescription(description);
         submitTask();
-        messageSuccessCreation.shouldBe(Condition.visible);
         return new Task(title, type, description, taskId);
     }
 

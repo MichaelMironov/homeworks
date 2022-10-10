@@ -15,6 +15,7 @@ import static org.hamcrest.core.IsEqual.equalTo;
 import static utils.configurations.Configuration.getConfigurationValue;
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+@Tags({@Tag("@api"),@Tag("@native")})
 public class ReqresTest {
 
     private static String ID;

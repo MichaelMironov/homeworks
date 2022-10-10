@@ -8,6 +8,7 @@ import org.apache.log4j.Logger;
 
 import static com.codeborne.selenide.Selenide.$x;
 import static com.codeborne.selenide.Selenide.open;
+import static io.qameta.allure.Allure.step;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static utils.configurations.Configuration.getConfigurationValue;
 
@@ -23,35 +24,38 @@ public class AuthorizationPage {
 
     private static final Logger LOGGER = LogManager.getLogger(BoardsPage.class);
 
-    public static final String USER = "user";
-
-    @Step("Открыть страницу авторизации")
     public static void openAuthorizationPage(){
-        open(getConfigurationValue("authorizeUrl"));
+        step("Открыть страницу авторизации", ()->{
+            open(getConfigurationValue("authorizeUrl"));
+        });
+
         LOGGER.info("Переход на страницу авторизации...");
     }
 
-    @Step("Авторизоваться в системе как {login}")
     public static void logInAs(String login){
 
-        loginField.click();
-        loginField.shouldHave(Condition.attribute("data-focus-visible-added")).sendKeys(getConfigurationValue(login));
+        step("Авторизоваться в системе как: " + login, ()->{
+            loginField.click();
+            loginField.shouldHave(Condition.attribute("data-focus-visible-added")).sendKeys(getConfigurationValue(login));
 
-        passwordField.click();
-        passwordField.shouldHave(Condition.attribute("data-focus-visible-added")).sendKeys(getConfigurationValue("password"));
+            passwordField.click();
+            passwordField.shouldHave(Condition.attribute("data-focus-visible-added")).sendKeys(getConfigurationValue("password"));
 
-        buttonLogIn.shouldBe(Condition.enabled).click();
+            buttonLogIn.shouldBe(Condition.enabled).click();
 
-        assertFalse(usernameError.isDisplayed(), "Введены некорретные учетные данные!");
+            assertFalse(usernameError.isDisplayed(), "Введены некорретные учетные данные!");
+        });
 
         LOGGER.info("Пользователь авторизован как - " + login);
 
     }
 
-    @Step("Выйти из системы")
     public static void logOut(){
-        $x("//span[@class='aui-avatar-inner']").shouldBe(Condition.visible).click();
-        $x("//a[@id='log_out']").shouldBe(Condition.visible).click();
+        step("Выйти из системы", ()->{
+            $x("//span[@class='aui-avatar-inner']").shouldBe(Condition.visible).click();
+            $x("//a[@id='log_out']").shouldBe(Condition.visible).click();
+        });
+
         LOGGER.info("Выход из системы");
     }
 
