@@ -1,6 +1,7 @@
 package utils.configurations;
 
 
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
@@ -25,6 +26,24 @@ public class Configuration {
     public static String getConfigurationValue(String key) {
 
         return ((System.getProperty(key) == null) ? properties.getProperty(key) : System.getProperty(key));
+    }
+
+    public static void setEnvironmentProperties(){
+        String path = System.getProperty("allure.results.directory");
+        try {
+            Properties props = new Properties();
+            FileOutputStream fos = new FileOutputStream(path + "/environment.properties");
+            props.setProperty(System.getProperty("os.name"), System.getProperty("os.version"));
+            props.setProperty("Architecture",System.getProperty("os.arch"));
+            props.setProperty("JDK", System.getProperty("java.version"));
+            props.setProperty("Cucumber plugin", System.getProperty("cucumber.plugin"));
+            props.store(fos, "environment");
+            fos.close();
+
+        } catch (Exception e) {
+            System.err.println("Ошибка записи в файл");
+            e.printStackTrace();
+        }
     }
 
     public Configuration(){
