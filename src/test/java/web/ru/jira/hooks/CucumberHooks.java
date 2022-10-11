@@ -12,7 +12,7 @@ import web.ru.jira.pages.AuthorizationPage;
 
 import static io.qameta.allure.Allure.step;
 
-public class CucumberHooks {
+public class CucumberHooks extends WebHooks {
 
     @Before
     public void setUp(Scenario scenario) {

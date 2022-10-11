@@ -34,8 +34,6 @@ public class BoardsPage {
 
     public static void addTaskToSprint(int id, String name) {
 
-        LOGGER.info("Добавить задачу в активный спринт");
-
         step("Добавить задачу с id: " + id + " и title: "+ name +" в активный спринт",()->{
             taskName = id + " " + name;
             taskId = id;
@@ -56,8 +54,6 @@ public class BoardsPage {
 
     public static void toSprintBoard() {
         step("Перейти к доске текущего спринта", ()-> activeTasks.shouldBe(Condition.visible).doubleClick());
-
-        LOGGER.info("Переход к доске активного спринта");
     }
 
     public static void moveTaskByIdTo(int id, String in) {
@@ -67,8 +63,6 @@ public class BoardsPage {
             SelenideElement task = $x("//a[@title='TEST-"+ id +"']").shouldBe(Condition.visible);
 
             SelenideElement column = $x(in).shouldBe(Condition.visible);
-
-//        task.shouldBe(Condition.visible).scrollIntoView(true).dragAndDropTo(column);
 
             Selenide.actions()
                     .moveToElement(task)

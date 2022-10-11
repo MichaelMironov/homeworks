@@ -4,6 +4,7 @@ import api.context.ContextHolder;
 import api.model.RequestModel;
 import api.ApiRequest;
 import io.cucumber.datatable.DataTable;
+import io.cucumber.java.ru.Дано;
 import io.cucumber.java.ru.И;
 import io.qameta.allure.Allure;
 import org.slf4j.Logger;
@@ -16,6 +17,7 @@ import utils.JsonUtil;
 import java.util.HashMap;
 import java.util.Map;
 
+import static io.restassured.RestAssured.requestSpecification;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 

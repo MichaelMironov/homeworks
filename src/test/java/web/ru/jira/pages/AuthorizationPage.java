@@ -28,8 +28,6 @@ public class AuthorizationPage {
         step("Открыть страницу авторизации", ()->{
             open(getConfigurationValue("authorizeUrl"));
         });
-
-        LOGGER.info("Переход на страницу авторизации...");
     }
 
     public static void logInAs(String login){
@@ -56,7 +54,6 @@ public class AuthorizationPage {
             $x("//a[@id='log_out']").shouldBe(Condition.visible).click();
         });
 
-        LOGGER.info("Выход из системы");
     }
 
 }

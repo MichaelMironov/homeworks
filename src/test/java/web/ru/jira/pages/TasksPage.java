@@ -31,7 +31,6 @@ public class TasksPage {
             searcher.sendKeys(text);
             searcher.pressEnter();
         });
-        LOGGER.info("Поиск задачи по названию: " + text);
     }
 
     public static void totalCountTasks() {

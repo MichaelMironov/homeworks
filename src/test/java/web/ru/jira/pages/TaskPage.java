@@ -61,7 +61,6 @@ public class TaskPage {
     }
 
     public static Task createNewTask(String title, String type, String description) {
-        LOGGER.info("Создание задачи. Название: " + title + ". Тип: " + type + ". Описание: " + description);
         setTitle(title);
         selectType(type);
         setDescription(description);

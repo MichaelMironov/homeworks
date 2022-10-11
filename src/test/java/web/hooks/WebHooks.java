@@ -6,23 +6,26 @@ import com.codeborne.selenide.logevents.SelenideLogger;
 import io.qameta.allure.selenide.AllureSelenide;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
-
+import java.io.FileOutputStream;
 import java.util.Objects;
+import java.util.Properties;
 
-import static utils.configurations.Configuration.getConfigurationValue;
+import static utils.configurations.Configuration.setEnvironmentProperties;
+
 
 public class WebHooks {
     @BeforeAll
     public static void setConfiguration() {
 
+        setEnvironmentProperties();
+
+        Configuration.timeout = 7000;
+        Configuration.startMaximized = true;
+
         SelenideLogger.addListener("AllureSelenide", new AllureSelenide()
                 .screenshots(true)
                 .savePageSource(true)
         );
-
-
-        Configuration.timeout = 7000;
-        Configuration.startMaximized = true;
 
 //        String webDriverLocation = null;
 //
@@ -38,9 +41,9 @@ public class WebHooks {
     }
 
     @AfterAll
-    static void closeDriver(){
-        if(Objects.nonNull(WebDriverRunner.getWebDriver())){
+    static void closeDriver() {
+        if (Objects.nonNull(WebDriverRunner.getWebDriver()))
             WebDriverRunner.getWebDriver().quit();
-        }
+
     }
 }

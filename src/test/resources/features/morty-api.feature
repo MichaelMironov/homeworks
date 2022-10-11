@@ -1,5 +1,5 @@
 #language: ru
-@api
+@api @morty
 Функционал:  Проверка api rick and morty
 
   Сценарий:  Получение информации о Морти
