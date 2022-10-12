@@ -6,7 +6,11 @@ import com.codeborne.selenide.logevents.SelenideLogger;
 import io.qameta.allure.selenide.AllureSelenide;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
-import java.io.FileOutputStream;
+
+import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Objects;
 import java.util.Properties;
 
@@ -26,7 +30,6 @@ public class WebHooks {
                 .screenshots(true)
                 .savePageSource(true)
         );
-
 //        String webDriverLocation = null;
 //
 //        if (System.getProperty("os.name").toUpperCase().contains("MAC"))
@@ -37,7 +40,15 @@ public class WebHooks {
 //        if (webDriverLocation != null) {
 //            System.setProperty("webdriver.chrome.driver", webDriverLocation);
 //        }
+    }
 
+    public static void addCategoriesToAllure() {
+        try {
+            Files.copy(Paths.get("src/test/resources/categories.json"),Paths.get("target/allure-results/categories.json"));
+        } catch (IOException e) {
+            System.out.println("Ошибка в формировании отчета категорий Allure");
+            e.printStackTrace();
+        }
     }
 
     @AfterAll
