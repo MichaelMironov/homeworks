@@ -4,7 +4,9 @@ import com.codeborne.selenide.WebDriverRunner;
 import io.cucumber.java.After;
 import io.cucumber.java.Before;
 import io.cucumber.java.Scenario;
+import io.cucumber.java.en.Given;
 import io.qameta.allure.Attachment;
+import org.junit.jupiter.api.DisplayName;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import web.hooks.WebHooks;
@@ -21,6 +23,7 @@ public class CucumberHooks extends WebHooks {
 
     @After
     public void postCondition(Scenario scenario) {
+        addCategoriesToAllure();
         step("Окончание сценария: " + scenario.getName(), AuthorizationPage::logOut);
     }
 
