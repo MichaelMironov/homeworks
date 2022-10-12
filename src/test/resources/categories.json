@@ -1,0 +1,36 @@
+[
+  {
+    "name": "Пропущенные тесты",
+    "messageRegex": ".*",
+    "matchedStatuses": [ "skipped" ]
+  },
+  {
+    "name": "Устаревшие тесты (селекторы)",
+    "traceRegex": ".*NoSuchElementError.*",
+    "matchedStatuses": [ "failed" ]
+  },
+  {
+    "name": "Broken tests",
+    "traceRegex": "Error.*",
+    "matchedStatuses": [ "failed"]
+  },
+  {
+    "name": "Проблемы в кластере браузеров",
+    "messageRegex": ".*Timed out .* from renderer.*",
+    "matchedStatuses": ["broken"]
+  },
+  {
+    "name": "Тестовые дефекты",
+    "messageRegex": ".*Expected is not a String or a RegExp.*",
+    "matchedStatuses": ["failed"]
+  },
+  {
+    "name": "Дефекты продукта",
+    "traceRegex": ".*Failed expectation.*",
+    "matchedStatuses": [ "failed" ]
+  },
+  {
+    "name": "Успешные тесты",
+    "matchedStatuses": ["passed"]
+  }
+]
