@@ -1,5 +1,4 @@
-package web.ru.jira;
-
+package web;
 
 import io.cucumber.junit.Cucumber;
 import io.cucumber.junit.CucumberOptions;
@@ -11,7 +10,8 @@ import org.junit.runner.RunWith;
         monochrome = true,
         glue = {"web.ru.jira.steps", "web.ru.jira.hooks"},
         features = "classpath:features",
-        tags = "@ui")
+        tags = "@ui"
+)
 public class TestRunnerWeb {
 
 }
