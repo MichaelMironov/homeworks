@@ -1,47 +1,61 @@
 #language: ru
+
 @api @morty
+@severity=normal
 Функционал:  Проверка api rick and morty
 
   Сценарий:  Получение информации о Морти
     Дано создать запрос
-      | method | url                                       |
-      | GET    | https://rickandmortyapi.com/api/character |
-    * добавить параметры запроса
+      | method | path       |
+      | GET    | /character |
+    Также добавить параметры запроса
       | name | Morty Smith |
-    * добавить header
+    И добавить header
       | Content-type | application/json |
-    И отправить запрос
-    Тогда статус код 200
-    Затем извлечь данные
+    Если отправить запрос
+    То статус код 200
+    Тогда извлечь данные
+      | morty_id        | $.results[0].id              |
       | morty_name      | $.results[0].name            |
       | morty_species   | $.results[0]species          |
       | morty_location  | $.results[0]location         |
       | morty_episodes  | $.results[0]episode          |
       | id_last_episode | $.results[0]episode.length() |
+    И сравнить значения
+      | ${morty_id}      | != | null        |
+      | ${morty_name}    | == | Morty Smith |
+      | ${morty_species} | == | Human       |
 
   Сценарий: Поиск персонажа в эпизоде
     Дано создать запрос
-      | method | url                                                        |
-      | GET    | https://rickandmortyapi.com/api/episode/${id_last_episode} |
-    * добавить header
+      | method | path                        |
+      | GET    | /episode/${id_last_episode} |
+    Также добавить header
       | Content-type | application/json |
-    И отправить запрос
-    Тогда статус код 200
-    * извлечь данные
+    Если отправить запрос
+    То статус код 200
+    Затем извлечь данные
       | last_char | $.characters[-1] |
+    И сравнить значения
+      | last_char | != | null |
 
-  Сценарий:  Получение информации о Джерри
+  Сценарий: Получение информации о Джерри
     Дано создать запрос
       | method | url          |
       | GET    | ${last_char} |
-    * добавить header
+    Также добавить header
       | Content-type | application/json |
-    И отправить запрос
+    Если отправить запрос
     Тогда статус код 200
-    * извлечь данные
+    Затем извлечь данные
+      | jerry_id       | $.id       |
       | jerry_name     | $.name     |
       | jerry_species  | $.species  |
       | jerry_location | $.location |
+    И сравнить значения
+      | $.{jerry_id}     | != | null        |
+      | ${jerry_name}    | == | Young Jerry |
+      | ${jerry_species} | == | Human       |
 
   Сценарий: Сравнение персонажей
     Тогда сравнить значения
