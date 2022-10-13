@@ -66,8 +66,8 @@ public class BoardsPage {
 
             Selenide.actions()
                     .moveToElement(task)
-                    .clickAndHold()
-                    .moveToElement(column)
+                    .clickAndHold().pause(100)
+                    .moveToElement(column).pause(100)
                     .release().perform();
 
             if(in.equals(IN_WORK)){
