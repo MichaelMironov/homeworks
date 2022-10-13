@@ -9,10 +9,8 @@ import org.junit.jupiter.api.BeforeAll;
 
 import java.io.*;
 import java.nio.file.Files;
-import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Objects;
-import java.util.Properties;
 
 import static utils.configurations.Configuration.setEnvironmentProperties;
 
