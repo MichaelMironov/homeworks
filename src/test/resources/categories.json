@@ -10,6 +10,11 @@
     "matchedStatuses": [ "failed" ]
   },
   {
+    "name": "Ошибка состояния элемента: клик мышью",
+    "messageRegex": ".*ElementClickInterceptedException.*",
+    "matchedStatuses": [ "skipped" ]
+  },
+  {
     "name": "Broken tests",
     "traceRegex": "Error.*",
     "matchedStatuses": [ "failed"]
