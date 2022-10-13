@@ -1,4 +1,4 @@
-package web.ru.jira.tests;
+package web.ru.jira;
 
 
 import io.cucumber.junit.Cucumber;
@@ -12,7 +12,7 @@ import org.junit.runner.RunWith;
         glue = {"web.ru.jira.steps", "web.ru.jira.hooks"},
         features = "classpath:features",
         tags = "@ui")
-public class RunnerTest {
+public class TestRunnerWeb {
 
 }
 
