@@ -15,7 +15,7 @@
         <owner.version>1.0.12</owner.version>
         <cucumber.version>6.9.1</cucumber.version>
         <aspectj.version>1.9.9.1</aspectj.version>
-        <surefire.version>3.0.0-M4</surefire.version>
+        <surefire.version>3.0.0-M7</surefire.version>
         <selenide.version>5.21.0</selenide.version>
         <log4j.version>2.14.0</log4j.version>
         <slf4j.version>1.7.30</slf4j.version>
@@ -194,6 +194,12 @@
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>${surefire.version}</version>
                 <configuration>
+                    <includes>
+                        <include>TestSuite</include>
+                    </includes>
+                    <parallelMavenExecution>true</parallelMavenExecution>
+                    <threadCountSuites>2</threadCountSuites>
+                    <perCoreThreadCount>false</perCoreThreadCount>
                     <testFailureIgnore>false</testFailureIgnore>
                     <skipTests>false</skipTests>
                     <argLine>
