@@ -8,5 +8,5 @@ import web.TestRunnerWeb;
         TestRunnerApi.class,
         TestRunnerWeb.class
 })
-public class TestSuiteProject {
+public class TestSuite {
 }
