@@ -37,7 +37,7 @@ public class BoardsPage {
         step("Добавить задачу с id: " + id + " и title: "+ name +" в активный спринт",()->{
             taskName = id + " " + name;
             taskId = id;
-            tasksList.click();
+            tasksList.shouldBe(Condition.enabled).click();
             searcherBacklogTasks.setValue(taskName).should(Condition.appear);
             $x("//div[@class=\"ghx-description\"]").should(Condition.visible);
 
