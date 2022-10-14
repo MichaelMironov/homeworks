@@ -3,18 +3,20 @@ package api;
 import api.context.ContextHolder;
 import api.loggers.RestAssuredLogger;
 import api.model.RequestModel;
-import com.github.viclovsky.swagger.coverage.SwaggerCoverageRestAssured;
-import io.qameta.allure.restassured.AllureRestAssured;
+import io.qameta.allure.Allure;
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.http.Method;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 import org.aeonbits.owner.ConfigFactory;
+import org.apache.commons.io.IOUtils;
 import utils.FileUtil;
+import utils.JsonUtil;
 import utils.RegexUtil;
 import utils.configurations.RestConfiguration;
 
 import java.net.URI;
+import java.nio.charset.StandardCharsets;
 import java.util.Map;
 
 import static io.restassured.RestAssured.given;
@@ -53,8 +55,7 @@ public class ApiRequest {
         }
 
         this.builder.setBaseUri(uri);
-        this.builder.addFilter(new AllureRestAssured());
-        this.builder.addFilter(new SwaggerCoverageRestAssured());
+//        this.builder.addFilter(new SwaggerCoverageRestAssured());
         setBodyFromFile();
         addLoggingListener();
     }
@@ -82,7 +83,7 @@ public class ApiRequest {
                 .spec(requestSpecification)
                 .request(method);
 
-        getResponseBody(response, body);
+        attachRequestResponseToAllure(response, body);
     }
 
     private void setBodyFromFile() {
@@ -92,11 +93,18 @@ public class ApiRequest {
         }
     }
 
-    private void getResponseBody(Response response, String requestBody) {
+    private void attachRequestResponseToAllure(Response response, String requestBody) {
         if (requestBody != null) {
-            response.prettyPrint();
+            Allure.addAttachment(
+                    "Request",
+                    "application/json",
+                    IOUtils.toInputStream(requestBody, StandardCharsets.UTF_8),
+                    ".txt");
         }
+        String responseBody = JsonUtil.jsonToUtf(response.body().asPrettyString());
+        Allure.addAttachment("Response", "application/json", responseBody, ".txt");
     }
+
     private void addLoggingListener() {
         builder.addFilter(new RestAssuredLogger());
     }
